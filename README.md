@@ -1,70 +1,174 @@
-# Getting Started with Create React App
+# Your Critterpedia Website Plan:
+## The MVP (Minimum Viable Product):
+- A website that statically shows all the fish, bugs, and sea creatures with their respective price, location, times, picture, etc for the Northern Hemisphere
+- Search bar and filters (either one works!) to change what is displayed.
+- Filters include month, location, rarity, etc.
+- The Home page displays the current bugs/fish that are accessible in this month (takes into account the current date)
+- Cute UI based off of ACNH Style
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+How will it be divided?
+Well, there are 4 categories of the museum, but two of which are different in the critterpedia
+- Bugs
+- Fish / Sea Creatures
+- Fossils
+- Art
 
-## Available Scripts
+Pages I know I want:
+- Landing page
+- Museum
+- MyCritterpedia (logged in only)
 
-In the project directory, you can run:
 
-### `npm start`
+## Dependencies:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Frontend:
+- axios
+- react-router
+- react-router-dom
+- react-redux
+- react-redux-devtools
+- redux-promise-middleware
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Server:
+- bcrypt
+- dotenv
+- express
+- express-session
+- massive
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Component tree:
 
-### `npm run build`
+### Front end:
+src/
+- components/
+    - App/
+        - App.js
+        - App.sass
+    - Entry/
+        - Entry.js
+        - Entry.sass
+    - Home/
+        - Home.js
+        - Home.sass
+    - Museum/
+        - Museum.js
+        - Museum.sass
+        - Exhibits/
+            - Exhibits.js
+            - Exhibits.sass
+    - MyCritterpedia/
+        - MyCritterpedia.js
+        - MyCritterpedia.sass
+    - shared/
+        - Header/
+            - Header.js
+            - Header.sass
+            - Profile/
+                - Profile.js
+                - Profile.sass
+        - Footer/
+            - Footer.js
+            - Footer.sass
+    - index.js
+    - .gitignore
+    - .env
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Server:
+server/
+- controllers/
+    - authController.js
+        * loginUser()
+            - app.post(“/auth/login”)
+        * registerUser()
+            - app.post(“/auth/register”)
+        * logoutUser()
+            - app.post(“/auth/logout”)
+    - userController.js
+        * deleteUser()
+            - app.delete(“/api/user”)
+        * editUser()
+            - app.put(“/api/user”)
+        * getUser()
+            - app.get(“/api/user“)
+    - museumController.js
+        * getExhibit()
+            - app.get(“/api/exhibit”)
+        * updateExhibit()
+            - app.put(“/api/exhibit”)
+        * addToExhibit()
+            - app.post(“/api/exhibit/:id”)
+- index.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Database:
+db/
+- user/
+    - check_user.sql
+    - create_user.sql
+    - edit_user.sql
+    - delete_user.sql
+- critterpedia/
+    - get_exhibit.sql
+    - get_exhibits.sql
+    - edit_exhibit.sql
+    - add_critter.sql
+- init.sql
+- seed.sql
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## init.sql
+### users table
+```SQL
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username NOT NULL VARCHAR(50),
+    email NOT NULL VARCHAR(250),
+    password NOT NULL VARCHAR(200),
+    profile_pic NOT NULL VARCHAR(2000),
+    region NOT NULL BOOLEAN,
+    birthday DATE,
+    user_island VARCHAR(10),
+    user_fruit VARCHAR(7),
+    user_comment VARCHAR(24),
+    register_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+```
+### museum table
+```SQL
+CREATE TABLE museum (
+    museum_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id)
+);
+```
+### museum_bugs table
+```SQL
+CREATE TABLE museum_bugs (
+    museum_bug_id SERIAL PRIMARY KEY,
+    bug_id INT NOT NULL,
+    museum_id INT REFERENCES museum(museum_id)
+);
+```
+### museum_fish table
+```SQL
+CREATE TABLE museum_fish (
+    museum_fish_id SERIAL PRIMARY KEY,
+    fish_id INT NOT NULL,
+    museum_id INT REFERENCES museum(museum_id)
+);
+```
+### museum_sea table
+```SQL
+CREATE TABLE museum_sea (
+    museum_sea_id SERIAL PRIMARY KEY,
+    sea_creature_id INT NOT NULL,
+    museum_id INT REFERENCES museum(museum_id)
+);
+```
+## Icebox: 
+### friends_list table
+```SQL
+CREATE TABLE friends_list (
+    friends_list_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    friend_id INT NOT NULL
+);
+```
