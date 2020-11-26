@@ -23,7 +23,6 @@ Pages I know I want:
 
 ### Frontend:
 - axios
-- react-router
 - react-router-dom
 - react-redux
 - react-redux-devtools
@@ -57,10 +56,20 @@ src/
         - Exhibits/
             - Exhibits.js
             - Exhibits.sass
-    - MyCritterpedia/
-        - MyCritterpedia.js
-        - MyCritterpedia.sass
+    - YourCritterpedia/
+        - YourCritterpedia.js
+        - YourCritterpedia.sass
     - shared/
+        - Exhibit/
+            - ExhibitFilters/
+                - ExhibitFilters.js
+                - ExhibitFilters.sass
+                - ExhibitOtherFilters/
+                    - ExhibitOtherFilters.js
+                    - ExhibitOtherFilters.sass
+                - ExhibitTypeFilters/
+                    - ExhibitTypeFilters.js
+                    - ExhibitTypeFilters.sass
         - Header/
             - Header.js
             - Header.sass
@@ -70,6 +79,11 @@ src/
         - Footer/
             - Footer.js
             - Footer.sass
+    - redux/
+        - reducers/
+            - critterpediaReducer.js
+            - userReducer.js
+        - store.js
     - index.js
     - .gitignore
     - .env
@@ -112,6 +126,7 @@ db/
     - get_exhibits.sql
     - edit_exhibit.sql
     - add_critter.sql
+    - remove_critter.sql
 - init.sql
 - seed.sql
 
@@ -127,7 +142,7 @@ CREATE TABLE users (
     region NOT NULL BOOLEAN,
     birthday DATE,
     user_island VARCHAR(10),
-    user_fruit VARCHAR(7),
+    user_fruit INT,
     user_comment VARCHAR(24),
     register_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
