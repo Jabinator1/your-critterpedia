@@ -1,4 +1,4 @@
-import bcrypt, { hashSync } from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 export default {
     loginUser: async (req, res) => {
@@ -29,10 +29,11 @@ export default {
         const db = req.app.get('db')
         
         const {email, username, password} = req.body
-
+        const {check_email, check_username, register_user} = db.auth
+        //# if getting error, make sure you're passing in null for the optional values!
         try {
-            const [foundEmail] = await db.auth.check_email(email)
-            const [foundUsername] = await db.auth.check_username(username)
+            const [foundEmail] = await check_email(email)
+            const [foundUsername] = await check_username(username)
 
             if (!foundUsername) {
                 if (!foundEmail) {
@@ -40,7 +41,8 @@ export default {
                     const hash = bcrypt.hashSync(password, salt)
 
                     req.body.password = hash
-                    const [newUser] = db.auth.register_user(req.body)
+                    req.body.profile_pic = `https://avatars.dicebear.com/api/identicon/${username}.svg`
+                    const [newUser] = await register_user(req.body)
 
                     req.session.user = newUser
                     res.status(200).send(req.session.user)
@@ -54,8 +56,8 @@ export default {
             console.log("Database error on register function", err)
         }
     },
-    logoutUser: async (req, res) => {
-        const db = req.app.get('db')
-        
+    logoutUser: (req, res) => {
+        req.session.destroy()
+        res.sendStatus(200)
     }
 }
