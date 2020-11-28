@@ -24,8 +24,9 @@ Pages I know I want:
 ### Frontend:
 - axios
 - react-router-dom
+- redux
 - react-redux
-- react-redux-devtools
+- redux-devtools-extension
 - redux-promise-middleware
 
 ### Server:

@@ -1,11 +1,11 @@
 import Footer from '../shared/Footer/Footer'
 import Header from '../shared/Header/Header'
-import './App.css'
+import './App.sass'
 
 const App = () => (
   <>
     <Header />
-  
+    Cool
     <Footer />
   </>
 )

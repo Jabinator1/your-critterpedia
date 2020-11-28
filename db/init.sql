@@ -1,15 +1,15 @@
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    username NOT NULL VARCHAR(50),
-    email NOT NULL VARCHAR(250),
-    password NOT NULL VARCHAR(200),
-    profile_pic NOT NULL VARCHAR(2000),
-    region NOT NULL BOOLEAN,
-    register_date DATE NOT NULL DEFAULT CURRENT_DATE
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(250) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    profile_pic VARCHAR(2000) NOT NULL,
+    region BOOLEAN NOT NULL,
+    register_date DATE DEFAULT CURRENT_DATE,
     birthday DATE,
     island VARCHAR(10),
     fruit INT,
-    comment VARCHAR(24),
+    comment VARCHAR(24)
 );
 
 CREATE TABLE museum (
