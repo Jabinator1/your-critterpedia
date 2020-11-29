@@ -1,63 +1,59 @@
-import bcrypt from 'bcrypt'
+import {compareSync, genSaltSync, hashSync} from 'bcrypt'
 
-export default {
-    loginUser: async (req, res) => {
-        const db = req.app.get('db')
-        const {email, password} = req.body
+export const loginUser = async (req, res) => {
+    const db = req.app.get('db')
+    const {email, password} = req.body
 
-        try {
-            const [foundUser] = await db.auth.check_email(email)
+    try {
+        const [foundUser] = await db.auth.check_email(email)
+        if (!foundUser) return res.status(401).send("Invalid email or password.")
+        
+        const getPass = await db.shared.get_user_pass(email)
+        const passwordCheck = compareSync(password, getPass)
+        if (!passwordCheck) return res.status(401).send("Invalid email or password.")
 
-            if (!foundUser) return res.status(401).send("Invalid email or password.")
+        req.session.user = foundUser
+        return res.status(200).send(req.session.user)
+    } catch (err) {
+        res.sendStatus(400)
+        console.log("Database error on login function", err)
+    }
+}
 
-            const passwordCheck = bcrypt.compareSync(password, foundUser.password)
+export const registerUser = async (req, res) => {
+    const db = req.app.get('db')
+    const {email, username, password} = req.body
+    const {check_email, check_username, register_user} = db.auth
+    //# if getting error, make sure you're passing in null for the optional values!
 
-            if (passwordCheck) {
-                delete foundUser.password
-                req.session.user = foundUser
+    try {
+        const [foundUsername] = await check_username(username)
+        const [foundEmail] = await check_email(email)
+
+        if (!foundUsername) {
+            if (!foundEmail) {
+                const salt = genSaltSync(10)
+                const hash = hashSync(password, salt)
+
+                password = hash
+                req.body.profile_pic = `https://avatars.dicebear.com/api/identicon/${username}.svg`
+                const [newUser] = await register_user(req.body)
+
+                req.session.user = newUser
                 res.status(200).send(req.session.user)
             } else {
-                return res.status(401).send("Invalid email or password.")
+                return res.status(401).send("Email already in use")
             }
-            
-        } catch (err) {
-            console.log("Database error on login function", err)
+        } else {
+            return res.status(401).send("Username already in use")
         }
-
-    },
-    registerUser: async (req, res) => {
-        const db = req.app.get('db')
-        
-        const {email, username, password} = req.body
-        const {check_email, check_username, register_user} = db.auth
-        //# if getting error, make sure you're passing in null for the optional values!
-        try {
-            const [foundEmail] = await check_email(email)
-            const [foundUsername] = await check_username(username)
-
-            if (!foundUsername) {
-                if (!foundEmail) {
-                    const salt = bcrypt.genSaltSync(10)
-                    const hash = bcrypt.hashSync(password, salt)
-
-                    req.body.password = hash
-                    req.body.profile_pic = `https://avatars.dicebear.com/api/identicon/${username}.svg`
-                    const [newUser] = await register_user(req.body)
-
-                    req.session.user = newUser
-                    res.status(200).send(req.session.user)
-                } else {
-                    return res.status(401).send("Email already in use")
-                }
-            } else {
-                return res.status(401).send("Username already in use")
-            }
-        } catch (err) {
-            console.log("Database error on register function", err)
-        }
-    },
-    logoutUser: (req, res) => {
-        req.session.destroy()
-        res.sendStatus(200)
+    } catch (err) {
+        res.sendStatus(400)
+        console.log("Database error on register function", err)
     }
+}
+
+export const logoutUser = (req, res) => {
+    req.session.destroy()
+    res.sendStatus(200)
 }

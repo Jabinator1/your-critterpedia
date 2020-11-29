@@ -1,16 +1,15 @@
 -- meh way
--- UPDATE users
--- SET username = $2,
---     email = $3,
---     password = $4,
---     profile_pic = $5,
---     region = $6,
---     register_date = $7,
---     birthday = $8,
---     island = $9,
---     fruit = $10,
---     comment = $11
--- WHERE user_id = $1
+UPDATE users
+SET username = ${username},
+    email = ${email},
+    profile_pic = ${profile_pic},
+    region = ${region},
+    register_date = ${register_date},
+    birthday = ${birthday},
+    island = ${island},
+    fruit = ${fruit},
+    comment = ${comment}
+WHERE user_id = ${user_id};
 
 
 -- -- test
@@ -25,8 +24,8 @@
 --     column_value: "tes@test.com"
 -- }
 
-UPDATE users
-FOR item IN $1 LOOP
-    SET item.column_name = item.column_value
-    WHERE user_id = item.user_id
-END LOOP;
+-- UPDATE users
+-- FOR item IN $1 LOOP
+--     SET item.column_name = item.column_value
+--     WHERE user_id = item.user_id
+-- END LOOP;

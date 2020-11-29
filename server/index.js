@@ -3,14 +3,13 @@ import express from "express"
 import massive from "massive"
 import session from "express-session"
 import authController from "./controllers/authController.js"
-import userController from "./controllers/userController.js"
+import {editUser, editUserPass, deleteUser} from "./controllers/userController.js"
 import {checkUser} from "./middleware.js"
 const app = express()
 dotenv.config()
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const {loginUser, registerUser, logoutUser} = authController
-const {editUser, deleteUser} = userController
 
 app.use(express.json())
 app.use(session({
@@ -32,9 +31,9 @@ app.post("/auth/register", registerUser)
 app.post("/auth/logout", checkUser, logoutUser)
 
 //# User
-app.delete("/api/user", checkUser, editUser)
-app.put("/api/user", checkUser, deleteUser)
-// app.get("/api/user")
+app.put("/api/user", checkUser, editUser)
+app.delete("/api/user", checkUser, deleteUser)
+app.put("/api/user/password", checkUser, editUserPass)
 
 //# Museum
 // app.get("/api/exhibit")
