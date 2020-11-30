@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { connect } from "react-redux"
 import bellsIcon from "../../../../../assets/bellsIcon.svg"
 
 const ExhibitListItem = ({critter: {name, availability, price, icon_uri}, lang}) => {
@@ -23,4 +22,4 @@ const ExhibitListItem = ({critter: {name, availability, price, icon_uri}, lang})
     )
 }
 
-export default connect(state => state.languageReducer)(ExhibitListItem)
+export default ExhibitListItem

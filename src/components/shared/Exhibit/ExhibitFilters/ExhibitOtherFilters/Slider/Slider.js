@@ -1,11 +1,8 @@
-import { useReducer } from "react"
 import InputRange from "react-input-range"
-import { initialState, museumReducer } from "../../../../../Musuem/Museum"
 import 'react-input-range/lib/css/index.css'
 
 
-const Slider = ({label, min, max, val, step, setSlider, action, stateType}) => {
-    const [state, dispatch] = useReducer(museumReducer, initialState)
+const Slider = ({label, min, max, step, action, state, stateType, dispatch}) => {
 
     return (
         <div>
