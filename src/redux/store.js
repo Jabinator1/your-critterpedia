@@ -9,4 +9,4 @@ const rootReducer = combineReducers({
     userReducer
 })
 
-export default createStore(rootReducer)
+export default createStore(rootReducer, compose(composeWithDevTools(), applyMiddleware(promiseMiddleware)))

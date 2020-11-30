@@ -1,3 +1,4 @@
+import ExhibitOtherFilters from "./ExhibitOtherFilters/ExhibitOtherFilters"
 import ExhibitTypeFilters from "./ExhibitTypeFilters/ExhibitTypeFilters"
 
 const ExhibitFilters = ({setCritterType, setSearch}) => {
@@ -5,6 +6,7 @@ const ExhibitFilters = ({setCritterType, setSearch}) => {
         <div>
             <input type="search" onChange={e => setSearch(e.target.value)}/>
             <ExhibitTypeFilters setCritterType={setCritterType} />
+            <ExhibitOtherFilters />
         </div>
     )
 }
