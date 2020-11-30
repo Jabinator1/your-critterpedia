@@ -18,4 +18,4 @@ const ExhibitListItem = ({critter: {name, availability, price, icon_uri}, lang})
     )
 }
 
-export default connect(state => state)(ExhibitListItem)
+export default connect(state => state.languageReducer)(ExhibitListItem)

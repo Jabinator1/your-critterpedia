@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
 
-const Museum = ({lang}) => {
+const Museum = ({languageReducer: {lang}}) => {
     const [critterType, setCritterType]= useState("bugs")
     const [crittersArr, setCrittersArr] = useState([])
     const [search, setSearch] = useState("")
@@ -32,7 +32,6 @@ const Museum = ({lang}) => {
         setFilteredCritters(filteredCritters)
     }, [crittersArr, search, selectedFilters, lang])
 
-
     return (
         <div>
             <ExhibitFilters setCritterType={setCritterType} setSearch={setSearch} setSelectedFilters={setSelectedFilters} />
@@ -42,5 +41,6 @@ const Museum = ({lang}) => {
         </div>
     )
 }
+
 
 export default connect(state => state)(Museum)
