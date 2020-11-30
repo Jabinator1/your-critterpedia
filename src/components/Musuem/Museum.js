@@ -30,6 +30,7 @@ const Museum = ({languageReducer: {lang}}) => {
     }, [critterType])
 
     useEffect(() => {
+        //TODO implement sort()
         const filteredCritters = crittersArr.filter(critter => (
             critter.name[`name-${lang}`].toUpperCase().includes(search.toUpperCase())
             && (critter.price >= min && critter.price <= max)
