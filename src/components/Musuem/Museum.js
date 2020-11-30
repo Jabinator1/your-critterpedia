@@ -1,27 +1,9 @@
 import axios from "axios"
-import { useEffect, useState, createContext, useReducer } from "react"
+import { useEffect, useState, useReducer } from "react"
 import { connect } from "react-redux"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
-
-
-export const initialState = {
-    price: {min: 0, max: 12000}
-}
-
-export const DispatchContext = createContext()
-export const StateContext = createContext(initialState)
-
-export const museumReducer = (state, action) => {
-    switch(action.type) {
-        case "priceChanged":
-            return {...state, price: {min: action.payload.min, max: action.payload.max}}
-        default:
-            return state
-    }
-}
-
-
+import { initialState, museumReducer, DispatchContext, StateContext } from "./museumReducer"
 
 const Museum = ({languageReducer: {lang}}) => {
     const [critterType, setCritterType]= useState("bugs")

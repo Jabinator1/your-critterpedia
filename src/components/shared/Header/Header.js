@@ -8,6 +8,7 @@ const Header = ({changeLanguage, userReducer: {isLoggedIn}}) => {
     const [dropdown, setDropdown] = useState(false)
 
     const langArr = ["USen", "EUen", "EUde", "EUes", "USes", "EUfr", "USfr", "EUit", "EUnl", "CNzh", "TWzh", "JPja", "KRko", "EUru"]
+
     return (
         <header>
             <nav>
@@ -20,11 +21,11 @@ const Header = ({changeLanguage, userReducer: {isLoggedIn}}) => {
                  {dropdown ? (
                     <div>
                         <ul>
-                            {langArr.map(lang => (
-                                <li key={lang}>
-                                    <button onClick={() => {changeLanguage(lang); setDropdown(!dropdown)}}>{lang}</button>
-                                </li>
-                            ))}
+                        {langArr.map(lang => (
+                            <li key={lang}>
+                                <button onClick={() => {changeLanguage(lang); setDropdown(!dropdown)}}>{lang}</button>
+                            </li>
+                        ))}
                         </ul>
                     </div>
                 ) : null}
