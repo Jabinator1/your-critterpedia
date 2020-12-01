@@ -1,20 +1,13 @@
 import axios from "axios"
-import { useEffect, useState, useReducer } from "react"
+import { useEffect, useState } from "react"
 import { connect } from "react-redux"
+import { changeCritterType, changeFilters } from "../../redux/reducers/museumReducer"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
-import { initialState, museumReducer, DispatchContext, StateContext, CritterContext } from "./museumReducer"
 
-const Museum = ({languageReducer: {lang}}) => {
-    const [critterType, setCritterType]= useState("bugs")
+const Museum = ({languageReducer: {lang}, museumReducer: {price, timeOfDay, critterType, search, filters}, changeCritterType, changeFilters}) => {
     const [crittersArr, setCrittersArr] = useState([])
     const [filteredCritters, setFilteredCritters] = useState([])
-
-    const [search, setSearch] = useState("")
-    const [selectedFilters, setSelectedFilters] = useState({})
-
-    const [state, dispatch] = useReducer(museumReducer, initialState)
-    const {price, timeOfDay} = state
 
     useEffect(() => {
         const getCritter = async () => {
@@ -41,7 +34,7 @@ const Museum = ({languageReducer: {lang}}) => {
         ))
 
         setFilteredCritters(filteredCritters)
-    }, [crittersArr, search, selectedFilters, lang, price.min, price.max, timeOfDay.min, timeOfDay.max])
+    }, [crittersArr, search, lang, price, timeOfDay])
 
     const range = (min, max) => {
         const arr = []
@@ -53,19 +46,13 @@ const Museum = ({languageReducer: {lang}}) => {
 
     return (
         <div>
-            <CritterContext.Provider value={critterType}>
-                <DispatchContext.Provider value={dispatch}>
-                    <StateContext.Provider value={state}>
-                        <ExhibitFilters setCritterType={setCritterType} setSearch={setSearch} setSelectedFilters={setSelectedFilters} />
-                    </StateContext.Provider>
-                </DispatchContext.Provider>
-                <main>
-                    <ExhibitList filteredCritters={filteredCritters} critterType={critterType}/>
-                </main>
-            </CritterContext.Provider>
+            <ExhibitFilters changeCritterType={changeCritterType} changeFilters={changeFilters} />
+            <main>
+                <ExhibitList filteredCritters={filteredCritters} lang={lang} critterType={critterType}/>
+            </main>
         </div>
     )
 }
 
-
-export default connect(state => state)(Museum)
+const mapStateToProps = state => state
+export default connect(mapStateToProps, {changeCritterType, changeFilters})(Museum)

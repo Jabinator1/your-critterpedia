@@ -2,12 +2,12 @@ import bugsIcon from "../../../../../assets/bugsIcon.svg"
 import fishIcon from "../../../../../assets/fishIcon.svg"
 import seaCreaturesIcon from "../../../../../assets/seaCreaturesIcon.svg"
 
-const ExhibitTypeFilters = ({setCritterType}) => {
+const ExhibitTypeFilters = ({changeCritterType}) => {
 
     const critterTypeInputs = [
-        {name: "Bugs", type: "image", src: bugsIcon, state: "bugs"},
-        {name: "Fish", type: "image", src: fishIcon, state: "fish"},
-        {name: "Sea Creatures", type: "image", src: seaCreaturesIcon, state: "sea"}
+        {name: "Bugs", type: "image", src: bugsIcon, critterType: "bugs"},
+        {name: "Fish", type: "image", src: fishIcon, critterType: "fish"},
+        {name: "Sea Creatures", type: "image", src: seaCreaturesIcon, critterType: "sea"}
     ]
 
     return (
@@ -20,7 +20,7 @@ const ExhibitTypeFilters = ({setCritterType}) => {
                         className="critter-type-input" 
                         type={input.type} 
                         src={input.src} 
-                        onClick={() => setCritterType(input.state)}
+                        onClick={() => changeCritterType(input.critterType)}
                         style={{width: "50px"}} 
                     />
                 </div>

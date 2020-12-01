@@ -1,11 +1,10 @@
 import ExhibitOtherFilters from "./ExhibitOtherFilters/ExhibitOtherFilters"
 import ExhibitTypeFilters from "./ExhibitTypeFilters/ExhibitTypeFilters"
 
-const ExhibitFilters = ({setCritterType, setSearch}) => {
+const ExhibitFilters = ({changeCritterType}) => {
     return (
         <div>
-            <input type="search" onChange={e => setSearch(e.target.value)}/>
-            <ExhibitTypeFilters setCritterType={setCritterType} />
+            <ExhibitTypeFilters changeCritterType={changeCritterType} />
             <ExhibitOtherFilters />
         </div>
     )

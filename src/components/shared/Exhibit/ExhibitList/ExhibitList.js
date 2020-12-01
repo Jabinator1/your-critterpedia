@@ -1,12 +1,8 @@
-import { useContext } from "react"
-import { connect } from "react-redux"
 import LazyLoad from "react-lazyload"
 import ExhibitListItem from "./ExhibitListItem/ExhibitListItem"
 import Loading from "../../Loading/Loading"
-import { CritterContext } from "../../../Musuem/museumReducer"
 
-const ExhibitList = ({filteredCritters, lang}) => {
-    const critterType = useContext(CritterContext)
+const ExhibitList = ({filteredCritters, lang, critterType}) => {
     return (
         <ul>
             <LazyLoad placeholder={<Loading />} height={"100%"} >
@@ -16,5 +12,5 @@ const ExhibitList = ({filteredCritters, lang}) => {
     )
 }
 
-const mapStateToProps = state => state.languageReducer
-export default connect(mapStateToProps)(ExhibitList)
+
+export default ExhibitList

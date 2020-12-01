@@ -1,28 +1,49 @@
 const initialState = {
     price: {min: 0, max: 12000},
-    timeOfDay: {min: 0, max: 24}
+    timeOfDay: {min: 0, max: 24},
+    critterType: "bugs",
+    search: "",
+    filters: {}
 }
 
 const CHANGE_PRICE = "CHANGE_PRICE"
 const CHANGE_TIME = "CHANGE_TIME"
+const CHANGE_CRITTER = "CHANGE_CRITTER"
+const CHANGE_SEARCH = "CHANGE_SEARCH"
+const CHANGE_FILTERS = "CHANGE_FILTERS"
 
-export const changePrice = (min, max) => ({
-    type: CHANGE_PRICE,
-    payload: {min, max}
+export const changeSlider = (type, nums) => ({
+    type: type,
+    payload: nums
 })
 
-export const changeTime = (min, max) => ({
-    type: CHANGE_TIME,
-    payload: {min, max}
+export const changeCritterType = critterType => ({
+    type: CHANGE_CRITTER,
+    payload: critterType
+})
+
+export const changeSearch = search => ({
+    type: CHANGE_SEARCH,
+    payload: search
+})
+
+export const changeFilters = filters => ({
+    type: CHANGE_FILTERS,
+    paload: filters
 })
 
 const museumReducer = (state = initialState, action) => {
-    const {min, max} = action.payload
     switch(action.type) {
         case CHANGE_PRICE:
-            return {...state, price: {min, max}}
+            return {...state, price: action.payload}
         case CHANGE_TIME:
-            return {...state, timeOfDay: {min, max}}
+            return {...state, timeOfDay: action.payload}
+        case CHANGE_CRITTER:
+            return {...state, critterType: action.payload}
+        case CHANGE_SEARCH:
+            return {...state, search: action.payload}
+        case CHANGE_FILTERS:
+            return {...state, filters: action.payload}
         default:
             return state
     }
