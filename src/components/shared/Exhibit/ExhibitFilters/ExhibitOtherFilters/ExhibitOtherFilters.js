@@ -13,7 +13,7 @@ const ExhibitOtherFilters = () => {
 
     return (
         <div>
-            {sliderArr.map(slider => <Slider slider={slider} state={state} dispatch={dispatch} />)}
+            {sliderArr.map(slider => <Slider key={slider.label} slider={slider} state={state} dispatch={dispatch} />)}
         </div>
     )
 }
