@@ -1,11 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { changeCritterType, changeFilters } from "../../redux/reducers/museumReducer"
+import { changeMuseumReducer } from "../../redux/reducers/museumReducer"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
 
-const Museum = ({languageReducer: {lang}, museumReducer: {price, timeOfDay, critterType, search, filters}, changeCritterType, changeFilters}) => {
+const Museum = ({languageReducer: {lang}, museumReducer, museumReducer: {price, timeOfDay, critterType, search, filters}, changeMuseumReducer}) => {
     const [crittersArr, setCrittersArr] = useState([])
     const [filteredCritters, setFilteredCritters] = useState([])
 
@@ -22,7 +22,7 @@ const Museum = ({languageReducer: {lang}, museumReducer: {price, timeOfDay, crit
     }, [critterType])
 
     useEffect(() => {
-        //TODO implement sort()
+        //TODO implement sort() and other filters
         const filteredCritters = crittersArr.filter(critter => (
             //for the search bar to work
             critter.name[`name-${lang}`].toUpperCase().includes(search.toUpperCase())
@@ -46,7 +46,7 @@ const Museum = ({languageReducer: {lang}, museumReducer: {price, timeOfDay, crit
 
     return (
         <div>
-            <ExhibitFilters changeCritterType={changeCritterType} changeFilters={changeFilters} />
+            <ExhibitFilters changeMuseumReducer={changeMuseumReducer} lang={lang} museumReducer={museumReducer}/>
             <main>
                 <ExhibitList filteredCritters={filteredCritters} lang={lang} critterType={critterType}/>
             </main>
@@ -55,4 +55,4 @@ const Museum = ({languageReducer: {lang}, museumReducer: {price, timeOfDay, crit
 }
 
 const mapStateToProps = state => state
-export default connect(mapStateToProps, {changeCritterType, changeFilters})(Museum)
+export default connect(mapStateToProps, {changeMuseumReducer})(Museum)

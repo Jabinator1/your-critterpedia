@@ -1,11 +1,11 @@
 import ExhibitOtherFilters from "./ExhibitOtherFilters/ExhibitOtherFilters"
 import ExhibitTypeFilters from "./ExhibitTypeFilters/ExhibitTypeFilters"
 
-const ExhibitFilters = ({changeCritterType}) => {
+const ExhibitFilters = ({changeMuseumReducer, lang, museumReducer}) => {
     return (
         <div>
-            <ExhibitTypeFilters changeCritterType={changeCritterType} />
-            <ExhibitOtherFilters />
+            <ExhibitTypeFilters changeMuseumReducer={changeMuseumReducer} />
+            <ExhibitOtherFilters changeMuseumReducer={changeMuseumReducer} lang={lang} museumReducer={museumReducer}/>
         </div>
     )
 }

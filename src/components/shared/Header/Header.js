@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
 import { changeLanguage } from "../../../redux/reducers/languageReducer"
-import { changeSearch } from "../../../redux/reducers/museumReducer"
+import { changeMuseumReducer } from "../../../redux/reducers/museumReducer"
 import languageIcon from "../../../assets/languageChangeIcon.svg"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
-const Header = ({changeLanguage, userReducer: {isLoggedIn}, changeSearch}) => {
+const Header = ({changeLanguage, userReducer: {isLoggedIn}, changeMuseumReducer}) => {
     const [dropdown, setDropdown] = useState(false)
 
     const langArr = ["USen", "EUen", "EUde", "EUes", "USes", "EUfr", "USfr", "EUit", "EUnl", "CNzh", "TWzh", "JPja", "KRko", "EUru"]
@@ -16,7 +16,7 @@ const Header = ({changeLanguage, userReducer: {isLoggedIn}, changeSearch}) => {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/museum">Museum</NavLink>
                 {isLoggedIn ? <NavLink to="/your-critterpedia">Your Critterpedia</NavLink> : null}
-                <input type="search" onChange={e => changeSearch(e.target.value)}/>
+                <input type="search" onChange={e => changeMuseumReducer(e.target.type, e.target.value)}/>
             </nav>
             <div>
                  <input type="image" src={languageIcon} alt="language change icon" style={{width: "50px"}} onClick={() => setDropdown(!dropdown)}/>
@@ -36,4 +36,4 @@ const Header = ({changeLanguage, userReducer: {isLoggedIn}, changeSearch}) => {
     )
 }
 
-export default connect(state => state, {changeLanguage, changeSearch})(Header)
+export default connect(state => state, {changeLanguage, changeMuseumReducer})(Header)

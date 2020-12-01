@@ -2,7 +2,7 @@ import InputRange from "react-input-range"
 import 'react-input-range/lib/css/index.css'
 
 
-const Slider = ({slider: {label, min, max, step, action, stateType}, museumReducer, changeSlider}) => {
+const Slider = ({slider: {label, min, max, step, type}, museumReducer, changeMuseumReducer}) => {
     return (
         <div>
             <label>{label}</label>
@@ -10,9 +10,9 @@ const Slider = ({slider: {label, min, max, step, action, stateType}, museumReduc
                 // formatLabel={value => `${value} bells`} 
                 minValue={min} 
                 maxValue={max} 
-                value={museumReducer[stateType]} 
+                value={museumReducer[type]} 
                 step={step} 
-                onChange={e => changeSlider(action, e)} 
+                onChange={nums => changeMuseumReducer(type, nums)} 
             />
         </div>
     )
