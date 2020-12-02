@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import bellsIcon from "../../../../../assets/bellsIcon.svg"
 
-const ExhibitListItem = ({critter, critter: {name, availability, availability: {time, location, rarity, isAllDay, isAllYear}, price, icon_uri, shadow, speed}, lang, critterType}) => {
+const ExhibitListItem = ({critter, critter: {name, availability, availability: {time, location, rarity, isAllDay, isAllYear}, price, icon_uri, shadow, speed}, lang, hemisphere, critterType}) => {
     const [dropdown, setDropdown] = useState(false)
 
     useEffect(() => {
@@ -17,20 +17,22 @@ const ExhibitListItem = ({critter, critter: {name, availability, availability: {
                     <p>
                         <img src={bellsIcon} alt="Bells" style={{width: "15px"}}/>
                         sell price: {price}
-                        {critterType === "bugs" ? `(Flick price: ${critter["price-flick"]})` 
-                        : critterType === "fish" ? `(CJ price: ${critter["price-cj"]})` 
+                        {critterType === "bugs" ? ` (Flick price: ${critter["price-flick"]})` 
+                        : critterType === "fish" ? ` (CJ price: ${critter["price-cj"]})` 
                         : null}
                     </p>
+                    <p>seasonality: {isAllYear ? "all year" : availability[`month-${hemisphere}`]}</p>
                     <p>time of day: {isAllDay ? "all day" : time}</p>
-                    <p>seasonality: {isAllYear ? "all year" : availability[`month-${"northern"}`]}</p>
-                    {critterType === "bugs" || critterType === "fish" ? (
+
+                    {critterType !== "sea" ? (
                         <>
                             <p>location: {location}</p>
                             <p>rarity: {rarity}</p>
                         </>
-                    ) : null}
-                    {critterType === "fish" || critterType === "sea" ? <p>shadow: {shadow}</p> : null}
-                    {critterType === "sea" ? <p>speed: {speed}</p> : null}
+                    ) : (
+                        <p>speed: {speed}</p>
+                    )}
+                    {critterType !== "bugs" ? <p>shadow: {shadow}</p> : null}
                 </div>
             ) : null}
         </li>
