@@ -1,16 +1,19 @@
 const currentMonth = new Date().getMonth() + 1
 
 const initialState = {
-    price: {min: 0, max: 12000},
+    sellPrice: {min: 0, max: 12000},
     timeOfDay: {min: 0, max: 24},
     critterType: "bugs",
     search: "",
+    //TODO switch hemisphere to userReducer
     hemisphere: "northern",
+    allYear: false,
     selectedMonths: [currentMonth],
     sortById: true,
     sortByName: false,
+    allLocations: false,
     location: [],
-    rarity: 0,
+    rarity: {min: 0, max: 3},
     specialPrice: false,
     shadowSize: {min: 0, max: 6}
 }
