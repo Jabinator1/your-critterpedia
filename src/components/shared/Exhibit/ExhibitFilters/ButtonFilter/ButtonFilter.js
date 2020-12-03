@@ -1,4 +1,7 @@
-const newButtonFilter = ({filterInfo: {mappedOverArr, selectedArr, isChecked, label, selectedArrName, isCheckedName}, changeMuseumReducer}) => {
+import { useState } from "react"
+
+const ButtonFilter = ({filterInfo: {mappedOverArr, selectedArr, isChecked, label, selectedArrName, isCheckedName}, changeMuseumReducer}) => {
+    const [dropdown, setDropdown] = useState(false)
     const isMonthsSelected = selectedArrName === "selectedMonths"
 
     const editReducerArr = input => {
@@ -14,17 +17,22 @@ const newButtonFilter = ({filterInfo: {mappedOverArr, selectedArr, isChecked, la
 
     return (
         <div>
-            <ul>
-            {mappedOverArr.map((item, inputIndex) => (
-                <li key={item}>
-                    <input type="button" value={item} onClick={() => editReducerArr(isMonthsSelected ? inputIndex : item)} disabled={isChecked} />
-                </li>
-            ))}
-            </ul>
-            <label>All {label}</label>
-            <input type="checkbox" checked={isChecked} onChange={e => changeMuseumReducer(isCheckedName, !isChecked)}/>
+            <label onClick={() => setDropdown(!dropdown)}>{label}</label>
+            {dropdown ? (
+                <>
+                    <ul>
+                        {mappedOverArr.map((item, inputIndex) => (
+                            <li key={item}>
+                                <input type="button" value={item} onClick={() => editReducerArr(isMonthsSelected ? inputIndex : item)} disabled={isChecked} />
+                            </li>
+                        ))}
+                    </ul>
+                    <label>All {label}</label>
+                    <input type="checkbox" checked={isChecked} onChange={e => changeMuseumReducer(isCheckedName, !isChecked)}/>
+                </>
+            ) : null}
         </div>
     )
 }
 
-export default newButtonFilter
+export default ButtonFilter

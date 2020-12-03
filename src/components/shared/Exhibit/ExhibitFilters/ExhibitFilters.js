@@ -5,17 +5,35 @@ import ButtonFilter from "./ButtonFilter/ButtonFilter"
 import buttonFilterData from './ButtonFilter/ButtonFilterData'
 
 const ExhibitFilters = ({changeMuseumReducer, lang, museumReducer}) => {
-
+    const {critterType} = museumReducer
     const data = buttonFilterData(museumReducer, lang)
+
+    const buttonFilter = filterName => <ButtonFilter filterInfo={data[filterName]} changeMuseumReducer={changeMuseumReducer} /> 
+
     return (
         <div>
-            <ExhibitTypeFilter changeMuseumReducer={changeMuseumReducer} />
-            <ButtonFilter filterInfo={data[0]} changeMuseumReducer={changeMuseumReducer} />
-            <SliderFilters changeMuseumReducer={changeMuseumReducer} museumReducer={museumReducer}/>
-            <ButtonFilter filterInfo={data[1]} changeMuseumReducer={changeMuseumReducer} />
-            <ButtonFilter filterInfo={data[2]} changeMuseumReducer={changeMuseumReducer} />
-            <ButtonFilter filterInfo={data[3]} changeMuseumReducer={changeMuseumReducer} />
-
+            <div className="exhibit-type-filters">
+                <ExhibitTypeFilter changeMuseumReducer={changeMuseumReducer} />
+            </div>
+            <div className="side-filters">
+                {buttonFilter("months")}
+                <SliderFilters changeMuseumReducer={changeMuseumReducer} museumReducer={museumReducer}/>
+                {critterType !== "sea" 
+                    ? buttonFilter("rarityLevels") 
+                    : (
+                        <>
+                            {buttonFilter("seaCreatureSpeeds")}
+                            {buttonFilter("seaCreatureShadowSizes")}
+                        </>
+                    )
+                }
+                {critterType === "fish" ? (
+                    <>
+                        {buttonFilter("fishLocations")}
+                        {buttonFilter("fishShadowSizes")}
+                    </>
+                 ) : null}
+            </div>
         </div>
     )
 }

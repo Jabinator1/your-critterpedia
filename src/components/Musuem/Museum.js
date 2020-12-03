@@ -5,8 +5,18 @@ import { changeMuseumReducer } from "../../redux/reducers/museumReducer"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
 
-const Museum = ({props, languageReducer: {lang}, museumReducer, changeMuseumReducer}) => {
-    const {sellPrice, timeOfDay, critterType, search, hemisphere, selectedMonths, isAllYearChecked, selectedCritterRarity, isAllCritterRarityChecked} = museumReducer
+const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer}) => {
+    //# All the variables off of museum Reducer
+    const {
+        sellPrice, timeOfDay, critterType, search, hemisphere,
+        selectedMonths, isAllYearChecked, 
+        selectedCritterRarity, isAllCritterRarityChecked, 
+        selectedLocations, isAllLocationsChecked, 
+        selectedSpeeds, isAllSpeedsChecked,
+        selectedFishShadowSizes, isAllFishShadowSizesChecked,
+        selectedSeaCreatureShadowSizes, isAllSeaCreatureShadowSizesChecked
+        } = museumReducer
+
     const [crittersArr, setCrittersArr] = useState([])
     const [filteredCritters, setFilteredCritters] = useState([])
 
@@ -22,10 +32,11 @@ const Museum = ({props, languageReducer: {lang}, museumReducer, changeMuseumRedu
         getCritter()
     }, [critterType])
 
+    //TODO look into moving this filter into a new file and simplifying code
     useEffect(() => {
         //TODO implement sort() and other filters
         const filteredCritters = crittersArr.filter(critter => {
-            const {name, price: critterPrice, availability} = critter
+            const {name, price: critterPrice, availability, shadow, speed} = critter
             return (
             //# Month filter
             // checks what months the critter is available by comparing both arrays
@@ -48,16 +59,41 @@ const Museum = ({props, languageReducer: {lang}, museumReducer, changeMuseumRedu
             && (isAllCritterRarityChecked ? true
                 : selectedCritterRarity.includes(availability.rarity))
 
+            //# Locations filter
+            && (isAllLocationsChecked || critterType !== "fish" ? true 
+                : selectedLocations.length === 0 ? false
+                : selectedLocations.includes(availability.location))
+            
+            //# Fish shadow sizes filter
+            && (isAllFishShadowSizesChecked || critterType !== "fish" ? true
+                : selectedLocations.length === 0 ? false
+                : selectedFishShadowSizes.includes(shadow))
+
+            //# Sea creature shadow sizes filter
+            && (isAllSeaCreatureShadowSizesChecked || critterType !== "sea" ? true 
+                : selectedSeaCreatureShadowSizes.length === 0 ? false
+                : selectedSeaCreatureShadowSizes.includes(shadow))
+
+            //# Sea creature speed filter
+            && (isAllSpeedsChecked || critterType !== "sea" ? true
+                : selectedSpeeds.length === 0 ? false
+                : selectedSpeeds.includes(speed))
+
             //# Search filter
             // for the search bar to work
             && name[`name-${lang}`].toUpperCase().includes(search.toUpperCase())
 
-
-
         )})
 
         setFilteredCritters(filteredCritters)
-    }, [crittersArr, search, lang, sellPrice, timeOfDay, selectedMonths, hemisphere, isAllYearChecked, isAllCritterRarityChecked, selectedCritterRarity])
+
+    }, [crittersArr, search, lang, sellPrice, timeOfDay, hemisphere, critterType,
+        selectedMonths, isAllYearChecked, 
+        selectedCritterRarity, isAllCritterRarityChecked, 
+        selectedLocations, isAllLocationsChecked, 
+        selectedFishShadowSizes, isAllFishShadowSizesChecked,
+        selectedSeaCreatureShadowSizes, isAllSeaCreatureShadowSizesChecked,
+        selectedSpeeds, isAllSpeedsChecked])
 
     // for creating an array from two numbers
     const range = (min, max) => {

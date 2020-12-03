@@ -18,7 +18,11 @@ const initialState = {
     isAllSpeedsChecked: true,
     selectedSpeeds: [],
 
-    shadowSize: {min: 0, max: 6},
+    isAllFishShadowSizesChecked: true,
+    selectedFishShadowSizes: [],
+
+    isAllSeaCreatureShadowSizesChecked: true,
+    selectedSeaCreatureShadowSizes: [],
 
     //TODO switch hemisphere to userReducer
     hemisphere: "northern",
