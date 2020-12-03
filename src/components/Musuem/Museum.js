@@ -5,7 +5,7 @@ import { changeMuseumReducer } from "../../redux/reducers/museumReducer"
 import ExhibitFilters from "../shared/Exhibit/ExhibitFilters/ExhibitFilters"
 import ExhibitList from "../shared/Exhibit/ExhibitList/ExhibitList"
 
-const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer}) => {
+const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer, userReducer: {isLoggedIn, user: {userHemisphere}}}) => {
     //# All the variables off of museum Reducer
     const {
         sellPrice, timeOfDay, critterType, search, hemisphere,
@@ -15,7 +15,7 @@ const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer}) =
         selectedSpeeds, isAllSpeedsChecked,
         selectedFishShadowSizes, isAllFishShadowSizesChecked,
         selectedSeaCreatureShadowSizes, isAllSeaCreatureShadowSizesChecked
-        } = museumReducer
+    } = museumReducer
 
     const [crittersArr, setCrittersArr] = useState([])
     const [filteredCritters, setFilteredCritters] = useState([])
@@ -43,7 +43,7 @@ const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer}) =
             (isAllYearChecked ? true
                 : selectedMonths.length === 0 ? false
                 : availability.isAllYear ? true
-                : availability[`month-array-${hemisphere}`].some(month => selectedMonths.includes(month)))
+                : availability[`month-array-${isLoggedIn ? userHemisphere : hemisphere}`].some(month => selectedMonths.includes(month)))
 
             //# Time of day filter
             // checks what time the critter is available by comparing both arrays
@@ -87,7 +87,8 @@ const Museum = ({languageReducer: {lang}, museumReducer, changeMuseumReducer}) =
 
         setFilteredCritters(filteredCritters)
 
-    }, [crittersArr, search, lang, sellPrice, timeOfDay, hemisphere, critterType,
+    }, [crittersArr, search, lang, sellPrice, timeOfDay,
+        userHemisphere, hemisphere, critterType, isLoggedIn,
         selectedMonths, isAllYearChecked, 
         selectedCritterRarity, isAllCritterRarityChecked, 
         selectedLocations, isAllLocationsChecked, 

@@ -5,6 +5,7 @@ const initialState = {
     search: "",
     isAllYearChecked: false,
     selectedMonths: [currentMonth],
+    hemisphere: "northern",
 
     sellPrice: {min: 0, max: 12000},
     timeOfDay: {min: 0, max: 24},
@@ -24,8 +25,6 @@ const initialState = {
     isAllSeaCreatureShadowSizesChecked: true,
     selectedSeaCreatureShadowSizes: [],
 
-    //TODO switch hemisphere to userReducer
-    hemisphere: "northern",
     sortById: true,
     sortByName: false
 }

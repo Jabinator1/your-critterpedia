@@ -47,7 +47,7 @@ const buttonFilterData = (museumReducer, lang) => {
             selectedArrName: "selectedLocations",
             isChecked: isAllLocationsChecked,
             isCheckedName: "isAllLocationsChecked",
-            label: "Fish Locations"
+            label: "Locations"
         },
         fishShadowSizes: {
             mappedOverArr: ["Smallest (1)", "Small (2)", "Medium (3)", "Medium (4)", "Medium with fin (4)", "Large (5)", "Largest (6)", "Largest with fin (6)", "Narrow"], 
@@ -55,7 +55,7 @@ const buttonFilterData = (museumReducer, lang) => {
             selectedArrName: "selectedFishShadowSizes",
             isChecked: isAllFishShadowSizesChecked,
             isCheckedName: "isAllFishShadowSizesChecked",
-            label: "Fish Shadow Sizes"
+            label: "Shadow Sizes"
         },
         seaCreatureShadowSizes: {
             mappedOverArr: ["Smallest", "Small", "Medium", "Large", "Largest"], 
@@ -63,7 +63,7 @@ const buttonFilterData = (museumReducer, lang) => {
             selectedArrName: "selectedSeaCreatureShadowSizes",
             isChecked: isAllSeaCreatureShadowSizesChecked,
             isCheckedName: "isAllSeaCreatureShadowSizesChecked",
-            label: "Sea Creature Shadow Sizes"
+            label: "Shadow Sizes"
         },
         seaCreatureSpeeds: {
             mappedOverArr: ["Stationary", "Very slow", "Slow", "Medium", "Fast", "Very fast"], 
