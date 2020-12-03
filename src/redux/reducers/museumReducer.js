@@ -16,7 +16,7 @@ const initialState = {
     selectedLocations: [],
 
     isAllSpeedsChecked: true,
-    seaCreatureSpeed: [],
+    selectedSpeeds: [],
 
     shadowSize: {min: 0, max: 6},
 

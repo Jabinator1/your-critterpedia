@@ -19,6 +19,7 @@ const Header = ({changeLanguage, userReducer: {isLoggedIn}, changeMuseumReducer}
                 <input type="search" onChange={e => changeMuseumReducer(e.target.type, e.target.value)}/>
             </nav>
             <div>
+                {/* //TODO Implement select and option tags! */}
                  <input type="image" src={languageIcon} alt="language change icon" style={{width: "50px"}} onClick={() => setDropdown(!dropdown)}/>
                  {dropdown ? (
                     <div>

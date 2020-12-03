@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Slider from "./Slider/Slider"
 
-const Sliders = ({museum: {changeMuseumReducer, museumReducer}}) => {
+const Sliders = ({changeMuseumReducer, museumReducer}) => {
     const {critterType} = museumReducer
     const isSeaAndFishCritterType = critterType !== "bugs" ? 15000 : 12000
 

@@ -1,32 +1,21 @@
 import { memo } from "react"
-import ButtonFilter from "./ButtonFilter/ButtonFilter"
 import SliderFilters from "./SliderFilters/SliderFilters"
 import ExhibitTypeFilter from "./ExhibitTypeFilter/ExhibitTypeFilter"
+import ButtonFilter from "./ButtonFilter/ButtonFilter"
+import buttonFilterData from './ButtonFilter/ButtonFilterData'
 
 const ExhibitFilters = ({changeMuseumReducer, lang, museumReducer}) => {
-    const {selectedMonths, isAllYearChecked, selectedCritterRarity, isAllCritterRarityChecked} = museumReducer
-    const museum = {
-        changeMuseumReducer,
-        museumReducer
-    }
+
+    const data = buttonFilterData(museumReducer, lang)
     return (
         <div>
             <ExhibitTypeFilter changeMuseumReducer={changeMuseumReducer} />
-            {/* //# Month Filter */}
-            <ButtonFilter 
-                lang={lang} 
-                changeMuseumReducer={changeMuseumReducer} 
-                isChecked={{isAllYearChecked}} 
-                selectedArr={{selectedMonths}}
-            />
-            <SliderFilters museum={museum} />
-            {/* //# Rarity Filter */}
-            <ButtonFilter 
-                lang={lang} 
-                changeMuseumReducer={changeMuseumReducer} 
-                isChecked={{isAllCritterRarityChecked}} 
-                selectedArr={{selectedCritterRarity}}
-            />
+            <ButtonFilter filterInfo={data[0]} changeMuseumReducer={changeMuseumReducer} />
+            <SliderFilters changeMuseumReducer={changeMuseumReducer} museumReducer={museumReducer}/>
+            <ButtonFilter filterInfo={data[1]} changeMuseumReducer={changeMuseumReducer} />
+            <ButtonFilter filterInfo={data[2]} changeMuseumReducer={changeMuseumReducer} />
+            <ButtonFilter filterInfo={data[3]} changeMuseumReducer={changeMuseumReducer} />
+
         </div>
     )
 }
