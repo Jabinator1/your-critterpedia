@@ -4,10 +4,15 @@ import promiseMiddleware from 'redux-promise-middleware'
 import museumReducer from "./reducers/museumReducer"
 import languageReducer from "./reducers/languageReducer"
 import userReducer from "./reducers/userReducer"
+import critterpediaReducer from "./reducers/critterpediaReducer"
 
+//TODO combine language reducer and userReducer. 
+//TODO Rename museumReducer to filtersReducer and update it to not have to do the hacky fix
 const rootReducer = combineReducers({
     languageReducer,
     userReducer,
-    museumReducer
+    museumReducer,
+    critterpediaReducer
 })
+
 export default createStore(rootReducer, compose(composeWithDevTools(), applyMiddleware(promiseMiddleware)))

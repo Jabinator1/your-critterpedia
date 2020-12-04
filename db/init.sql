@@ -41,3 +41,29 @@ CREATE TABLE friends_list (
     friend_id INT NOT NULL,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+
+-- UPDATING TABLES
+
+ALTER TABLE bugs
+DROP COLUMN bug_id
+ADD COLUMN bug_arr INT ARRAY NOT NULL;
+
+ALTER TABLE fish
+DROP COLUMN fish_id
+ADD COLUMN fish_arr INT ARRAY NOT NULL;
+
+ALTER TABLE sea
+DROP COLUMN sea_creature_id
+ADD COLUMN sea_arr INT ARRAY NOT NULL;
+
+CREATE TABLE critterpedia (
+    critterpedia_id SERIAL PRIMARY KEY,
+    bug_arr INT ARRAY,
+    fish_arr INT ARRAY,
+    sea_arr INT ARRAY,
+    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+INSERT INTO critterpedia (bug_arr, fish_arr, sea_arr, user_id)
+VALUES ('{1, 2, 3, 4, 5, 10, 18, 20, 21, 34}', '{1, 3, 4, 6, 11, 12, 13, 14, 15, 20, 40, 50, 55, 56, 58, 80}', '{1, 2, 3, 4, 6, 7, 8, 9, 14, 15, 21, 40}', 4);

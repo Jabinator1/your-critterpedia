@@ -1,4 +1,4 @@
-const currentMonth = new Date().getMonth()
+const currentMonth = new Date().getMonth() + 1
 
 const initialState = {
     critterType: "bugs",

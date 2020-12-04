@@ -23,7 +23,7 @@ const ButtonFilter = ({filterInfo: {mappedOverArr, selectedArr, isChecked, label
                     <ul>
                         {mappedOverArr.map((item, inputIndex) => (
                             <li key={item}>
-                                <input type="button" value={item} onClick={() => editReducerArr(isMonthsSelected ? inputIndex : item)} disabled={isChecked} />
+                                <input type="button" value={item} onClick={() => editReducerArr(isMonthsSelected ? (inputIndex + 1) : item)} disabled={isChecked} />
                             </li>
                         ))}
                     </ul>
