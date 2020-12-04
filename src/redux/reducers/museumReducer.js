@@ -31,6 +31,19 @@ const initialState = {
 
 export const changeMuseumReducer = (type, payload) => ({ type, payload })
 
-const museumReducer = (state = initialState, action) => ({...state, [action.type]: action.payload})
+const museumReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case "LOGIN_USER":
+            return initialState
+        case "LOGOUT_USER":
+            return initialState
+        
+        case `${action.type}`:
+            return {...state, [action.type]: action.payload}
+        default:
+            return initialState
+    }
+    
+}
 
 export default museumReducer

@@ -1,4 +1,5 @@
 SELECT 
+    u.user_id,
     u.username, 
     u.email, 
     u.profile_pic, 

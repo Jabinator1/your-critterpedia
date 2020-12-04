@@ -38,4 +38,4 @@ const ExhibitFilters = ({changeMuseumReducer, lang, museumReducer}) => {
     )
 }
 
-export default memo(ExhibitFilters)
+export default ExhibitFilters

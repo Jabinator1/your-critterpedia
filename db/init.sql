@@ -4,7 +4,7 @@ CREATE TABLE users (
     email VARCHAR(250) NOT NULL,
     password VARCHAR(200) NOT NULL,
     profile_pic VARCHAR(2000) NOT NULL,
-    region BOOLEAN NOT NULL,
+    region VARCHAR(8) NOT NULL,
     register_date DATE DEFAULT CURRENT_DATE,
     birthday DATE,
     island VARCHAR(10),
