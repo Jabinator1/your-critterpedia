@@ -5,7 +5,7 @@ import session from "express-session"
 import { loginUser, registerUser, logoutUser, getUser } from "./controllers/authController.js"
 import { editUser, editUserPass, deleteUser } from "./controllers/userController.js"
 import { checkUser } from "./middleware.js"
-import { getCritterpedia, editBugs } from "./controllers/critterpediaController.js"
+import { getCritterpedia, editCritterpedia } from "./controllers/critterpediaController.js"
 const app = express()
 dotenv.config()
 
@@ -38,6 +38,6 @@ app.put("/api/user/password", checkUser, editUserPass)
 
 //# Critterpedia
 app.get("/api/critterpedia", checkUser, getCritterpedia)
-app.put("/api/critterpedia", checkUser, editBugs)
+app.put("/api/critterpedia", checkUser, editCritterpedia)
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}.`))
