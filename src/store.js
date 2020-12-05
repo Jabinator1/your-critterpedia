@@ -1,6 +1,10 @@
-import { createStore } from "redux"
-import rootReducer from "./reducer"
+import { configureStore } from '@reduxjs/toolkit'
+import critterpediaReducer from './features/critterpedia/critterpediaSlice'
+import userReducer from './features/user/userSlice'
 
-const store = createStore(rootReducer)
-
-export default store
+export default configureStore({
+    reducer: {
+        critterpedia: critterpediaReducer,
+        user: userReducer
+    }
+})

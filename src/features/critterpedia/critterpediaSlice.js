@@ -1,3 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
@@ -42,4 +43,35 @@ const critterpediaReducer = (state = initialState, action) => {
     }
 }
 
-export default critterpediaReducer
+
+
+export const critterpediaSlice = createSlice({
+    name: "critterpedia",
+    initialState: {
+        insects: [],
+        fish: [],
+        seaCreatures: []
+    },
+    reducers: {
+        critterpediaLoaded: (state, action) => {
+            state.insects = action.payload.bugs_arr
+        }
+    }
+})
+
+export const {updateInsects} = critterpediaSlice.actions
+
+const fetchCritterpedia = () => {
+    return async (dispatch, getState) => {
+        try {
+            const critterpedia = await axios.get("/api/critterpedia")
+            dispatch(critterpediaLoaded(critterpedia))
+        } catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export const selectCritterpedia = state => state.critterpedia
+
+export default critterpediaSlice.reducer
