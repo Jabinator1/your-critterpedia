@@ -1,6 +1,6 @@
-import { applyMiddleware, createStore, combineReducers, compose } from "redux"
+import { applyMiddleware, createStore, combineReducers } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
-import promiseMiddleware from 'redux-promise-middleware'
+import thunkMiddleware from 'redux-thunk'
 import museumReducer from "./reducers/museumReducer"
 import languageReducer from "./reducers/languageReducer"
 import userReducer from "./reducers/userReducer"
@@ -15,4 +15,4 @@ const rootReducer = combineReducers({
     critterpediaReducer
 })
 
-export default createStore(rootReducer, compose(composeWithDevTools(), applyMiddleware(promiseMiddleware)))
+export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)))

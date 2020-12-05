@@ -6,12 +6,12 @@ import App from './components/App/App';
 import store from './redux/store';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </Provider>,
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('app')
 );
