@@ -1,18 +1,14 @@
-import { applyMiddleware, createStore, combineReducers } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension"
-import thunkMiddleware from 'redux-thunk'
-import museumReducer from "./reducers/museumReducer"
-import languageReducer from "./reducers/languageReducer"
-import userReducer from "./reducers/userReducer"
-import critterpediaReducer from "./reducers/critterpediaReducer"
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from "./slices/userSlice"
+import crittersReducer from "./slices/crittersSlice"
+import filtersReducer from "./slices/filtersSlice"
 
-//TODO combine language reducer and userReducer. 
-//TODO Rename museumReducer to filtersReducer and update it to not have to do the hacky fix
-const rootReducer = combineReducers({
-    languageReducer,
-    userReducer,
-    museumReducer,
-    critterpediaReducer
+export default configureStore({
+    reducer: {
+        // critterpedia: critterpediaReducer,
+        user: userReducer,
+        critters: crittersReducer,
+        filters: filtersReducer
+    }
 })
 
-export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)))
