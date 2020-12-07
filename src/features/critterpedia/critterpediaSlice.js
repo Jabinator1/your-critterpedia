@@ -1,76 +1,56 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const initialState = {
-    bug_arr: [],
-    fish_arr: [],
-    sea_arr: []
-}
 
-export const fetchCritterpedia = async dispatch =>  {
+export const updateInsects = createAsyncThunk("critterpedia/update", async initialInsects=> {
+    const res = await axios.put("/api/critterpedia", {critterArrType: "bug_arr", critterArr: initialInsects})
+    return res.data
+})
+
+export const fetchCritterpedia  = createAsyncThunk("critterpedia/fetchCritterpedia", async () => {
     const res = await axios.get("/api/critterpedia")
-    dispatch(critterpediaLoaded(res.data))
-}
-
-export const critterpediaLoaded = critterpedia => ({
-    type: "critterpedia/loaded",
-    payload: critterpedia
+    return res.data
 })
-
-export const critterpediaEdited = updatedInsectsArr => ({
-    type: "critterpedia/edited",
-    payload: updatedInsectsArr
-})
-
-export const saveNewInsects = newInsectsArr => {
-    return saveNewInsectsThunk = async dispatch => {
-        const initialInsects = { newInsectsArr }
-        const res = await axios.put("/api/critterpedia", {critterArrType: "bugs_arr", critterArr: initialInsects})
-        dispatch(critterpediaEdited(res.data))
-    }
-}
-
-
-
-const critterpediaReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case "critterpedia/critterpediaLoaded":
-            return {...state, bug_arr: payload.bug_arr, fish_arr: payload.fish_arr, sea_arr: payload.sea_arr}
-        case "critterpedia/critterpediaEdited":
-            return {...state, bug_arr: payload.bug_arr, fish_arr: payload.fish_arr, sea_arr: payload.sea_arr}
-        default:
-            return state
-    }
-}
-
-
 
 export const critterpediaSlice = createSlice({
     name: "critterpedia",
     initialState: {
         insects: [],
         fish: [],
-        seaCreatures: []
+        seaCreatures: [],
+        status: "idle",
+        error: null
     },
     reducers: {
-        critterpediaLoaded: (state, action) => {
+        critterpediaUpdated: (state, action) => {
             state.insects = action.payload.bugs_arr
+            state.fish = action.payload.fish_arr
+            state.seaCreatures = action.payload.sea_arr
+        }
+    },
+    extraReducers: {
+        [fetchCritterpedia.pending]: state => {
+            state.status = "loading"
+        },
+        [fetchCritterpedia.fulfilled]: (state, action) => {
+            state.status = "succeeded"
+            state.insects = state.insects.concat(action.payload.bugs_arr)
+            state.fish = state.fish.concat(action.payload.fish_arr)
+            state.seaCreatures = state.seaCreatures.concat(action.payload.sea_arr)
+        },
+        [fetchCritterpedia.rejected]: (state, action) => {
+            state.status = "failed"
+            state.error = action.error.message
+        },
+        [editCritterpedia.fulfilled]: (state, action) => {
+            state.insects = state.insects.concat(action.payload.bugs_arr)
+            state.fish = state.fish.concat(action.payload.fish_arr)
+            state.seaCreatures = state.seaCreatures.concat(action.payload.sea_arr)
         }
     }
 })
 
-export const {updateInsects} = critterpediaSlice.actions
-
-const fetchCritterpedia = () => {
-    return async (dispatch, getState) => {
-        try {
-            const critterpedia = await axios.get("/api/critterpedia")
-            dispatch(critterpediaLoaded(critterpedia))
-        } catch (err){
-            console.log(err)
-        }
-    }
-}
+export const {critterpediaUpdated} = critterpediaSlice.actions
 
 export const selectCritterpedia = state => state.critterpedia
 
