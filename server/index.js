@@ -29,9 +29,9 @@ massive({connectionString: CONNECTION_STRING, ssl: {rejectUnauthorized: false}})
 app.post("/auth/login", loginUser)
 app.post("/auth/register", registerUser)
 app.post("/auth/logout", checkUser, logoutUser)
+app.get("/auth/user-session", checkUser, getUser)
 
 //# User
-app.get("/api/user/session", checkUser, getUser)
 app.put("/api/user", checkUser, editUser)
 app.delete("/api/user", checkUser, deleteUser)
 app.put("/api/user/password", checkUser, editUserPass)
