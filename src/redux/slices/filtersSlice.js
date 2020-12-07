@@ -33,6 +33,7 @@ export const filterSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
+        //TODO UPDATE THIS FOR BETTER OPTIMIZATION
         updateFilters: (state, action) => {
             state[action.payload.filter] = action.payload.value
         }

@@ -1,42 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from "react"
-import { selectCritterpedia, fetchCritterpedia } from '../../../features/critterpedia/critterpediaSlice'
+import { selectCritterpedia, fetchCritterpedia } from '../../../redux/slices/critterpediaSlice'
+import { selectCurrentCritterType } from '../../../redux/slices/crittersSlice'
 
 
 const Critterpedia = () => {
     const dispatch = useDispatch()
-    const {bug_arr, fish_arr, sea_arr} = useSelector(selectCritterpedia)
+    const {critterpediaInsects, critterpediaFish, critterpediaSea, status, error} = useSelector(selectCritterpedia)
+    const critterType = useSelector(selectCurrentCritterType)
 
-    const critterpediaStatus = useSelector(state => state.critterpedia.status)
-    const error = useSelector(state.critterpedia.error)
-
-    const [critterType, setCritterType] = useState("insects")
-    
     useEffect(() => {
-        if (critterpediaStatus === "idle") {
-            dispatch(fetchCritterpedia)
+        if (status === "idle") {
+            dispatch(fetchCritterpedia())
         }
-    }, [critterpediaStatus, dispatch])
+    }, [status, dispatch])
 
     let content
 
-    if (critterpediaStatus === "loading") {
+    if (status === "loading") {
         content = <div>Loading...</div>
-    } else if (critterpediaStatus === "succeeded") {
-        const mappedArr = critterType === "insects" ? bug_arr 
-        : critterType === "fish" ? fish_arr 
-        : sea_arr
+    } else if (status === "succeeded") {
+        const mappedArr = critterType === "insects" ? critterpediaInsects 
+        : critterType === "fish" ? critterpediaFish 
+        : critterpediaSea
 
-        content = mappedArr.map(insect => (
-            <div>{insect}</div>
+        content = mappedArr.map(critter => (
+            <div>{critter}</div>
         ))
-    } else if (critterpediaStatus === "failed") {
+    } else if (status === "failed") {
         content = <div>{error}</div>
     }
 
     return (
         <section>
-            <h2>Insects</h2>
+            <h2>{critterType}</h2>
             {content}
         </section>
     )

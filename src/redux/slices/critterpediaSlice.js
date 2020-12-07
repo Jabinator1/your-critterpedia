@@ -1,13 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 //make sure to pass in an object like this: {critterArrType, critterArr}
-export const updateCritterpedia = createAsyncThunk("critterpedia/update", async critterArrObj => {
-    const res = await axios.put("/api/critterpedia", critterArrObj)
+export const updateCritterpedia = createAsyncThunk("critterpedia/update", async critterArr => {
+    const res = await axios.put("/api/critterpedia", critterArr)
     return res.data
 })
 
-export const fetchCritterpedia  = createAsyncThunk("critterpedia/fetchCritterpedia", async () => {
+export const fetchCritterpedia = createAsyncThunk("critterpedia/fetchCritterpedia", async () => {
     const res = await axios.get("/api/critterpedia")
     return res.data
 })
@@ -15,9 +15,9 @@ export const fetchCritterpedia  = createAsyncThunk("critterpedia/fetchCritterped
 export const critterpediaSlice = createSlice({
     name: "critterpedia",
     initialState: {
-        insects: [],
-        fish: [],
-        seaCreatures: [],
+        critterpediaInsects: [],
+        critterpediaFish: [],
+        critterpediaSea: [],
         status: "idle",
         error: null
     },
@@ -26,9 +26,9 @@ export const critterpediaSlice = createSlice({
             state.status = "loading"
         },
         [fetchCritterpedia.fulfilled]: (state, action) => {
-            state.insects = action.payload.bugs_arr
-            state.fish = action.payload.fish_arr
-            state.seaCreatures = action.payload.sea_arr
+            state.critterpediaInsects = action.payload.bug_arr
+            state.critterpediaFish = action.payload.fish_arr
+            state.critterpediaSea = action.payload.sea_arr
             state.status = "succeeded"
         },
         [fetchCritterpedia.rejected]: (state, action) => {
@@ -36,9 +36,9 @@ export const critterpediaSlice = createSlice({
             state.error = action.error.message
         },
         [updateCritterpedia.fulfilled]: (state, action) => {
-            state.insects = action.payload.bugs_arr
-            state.fish = action.payload.fish_arr
-            state.seaCreatures = action.payload.sea_arr
+            state.critterpediaInsects = action.payload.bug_arr
+            state.critterpediaFish = action.payload.fish_arr
+            state.critterpediaSea = action.payload.sea_arr
         }
     }
 })

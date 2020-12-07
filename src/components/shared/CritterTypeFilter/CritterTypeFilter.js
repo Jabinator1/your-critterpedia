@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import { changeCritterType } from "../../../redux/slices/crittersSlice"
 import { updateFilters } from "../../../redux/slices/filtersSlice"
 
-const ExhibitTypeFilters = () => {
+const CritterTypeFilter = () => {
     const dispatch = useDispatch()
 
     const critterTypeInputs = [
@@ -40,4 +40,4 @@ const ExhibitTypeFilters = () => {
     )
 }
 
-export default ExhibitTypeFilters
+export default CritterTypeFilter

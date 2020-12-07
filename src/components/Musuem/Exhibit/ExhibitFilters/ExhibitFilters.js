@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { useSelector } from "react-redux"
 import SliderFilters from "./SliderFilters/SliderFilters"
-import ExhibitTypeFilter from "../../../shared/ExhibitTypeFilter/ExhibitTypeFilter"
+import CritterTypeFilter from "../../../shared/CritterTypeFilter/CritterTypeFilter"
 import ButtonFilter from "./ButtonFilter/ButtonFilter"
 import buttonFilterData from './ButtonFilter/ButtonFilterData'
 import { selectCurrentCritterType } from "../../../../redux/slices/crittersSlice"
@@ -15,7 +15,7 @@ const ExhibitFilters = () => {
     return (
         <div>
             <div className="exhibit-type-filters">
-                <ExhibitTypeFilter />
+                <CritterTypeFilter />
             </div>
             <div className="side-filters">
                 {buttonFilter("months")}

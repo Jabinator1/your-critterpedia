@@ -1,15 +1,16 @@
-import { configureStore} from '@reduxjs/toolkit'
+import thunk from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit'
 import userReducer from "./slices/userSlice"
 import crittersReducer from "./slices/crittersSlice"
 import filtersReducer from "./slices/filtersSlice"
-import thunk from 'redux-thunk'
+import critterpediaReducer from "./slices/critterpediaSlice"
 
 export default configureStore({
     reducer: {
-        // critterpedia: critterpediaReducer,
-        user: userReducer,
+        critterpedia: critterpediaReducer,
         critters: crittersReducer,
-        filters: filtersReducer
+        filters: filtersReducer,
+        user: userReducer
     },
     middleware: [thunk]
 })
