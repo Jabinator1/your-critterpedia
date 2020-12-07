@@ -1,10 +1,9 @@
-import axios from "axios"
 import { useState, useEffect } from "react"
-import { connect } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"
-import { loginUser } from "../../redux/reducers/userReducer"
+import { login, selectError } from "../../redux/slices/userSlice";
 
-const Entry = ({loginUser}) => {
+const Entry = () => {
     const [isLoggingIn, setIsLoggingIn] = useState(true)
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -13,7 +12,9 @@ const Entry = ({loginUser}) => {
     const [region, setRegion] = useState("")
     const [isFilledOut, setIsFilledOut] = useState(false)
     const [passMatch, setPassMatch] = useState(false)
-    const [errMsg, setErrMsg] = useState("")
+    
+    const dispatch = useDispatch()
+    const error = useSelector(selectError)
     const history = useHistory()
 
     useEffect(() => {
@@ -42,19 +43,13 @@ const Entry = ({loginUser}) => {
 
     const entryFn = async e => {
         e.preventDefault()
-        setErrMsg("")
         const loginObj = {email, password}
         const registerObj = {username, ...loginObj, region}
 
         if ((isLoggingIn && isFilledOut) || (passMatch && isFilledOut)) {
-            try {
-                const test = isLoggingIn ? loginObj : registerObj
-                const user = await axios.post(`/auth/${isLoggingIn ? "login" : "register"}`, test)
-                loginUser(user.data)
-                history.push("/")
-            } catch (err) {
-                setErrMsg(err.response.request.response)
-            }
+            const userObj = isLoggingIn ? loginObj : registerObj
+            dispatch(login(userObj))
+            history.push("/")
         }
     }
 
@@ -70,7 +65,7 @@ const Entry = ({loginUser}) => {
 
     return (
         <div>
-            {errMsg ? <h2>{errMsg}</h2> : null}
+            {error ? <h2>{error}</h2> : null}
             {!passMatch && !isLoggingIn ? <h3>Passwords do not match</h3> : null}
             <form onSubmit={e => entryFn(e)}>
                 {inputsMapCheck.map(input => (
@@ -97,4 +92,4 @@ const Entry = ({loginUser}) => {
     )
 }
 
-export default connect(null, {loginUser})(Entry)
+export default Entry

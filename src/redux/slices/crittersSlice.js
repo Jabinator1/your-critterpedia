@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
-import { selectLanguage } from '../counter/userSlice'
-import { selectFilters } from '../filtersSlice'
+import { selectLanguage } from './userSlice'
+import { selectFilters } from './filtersSlice'
 
 const initialState = {
     currentCritterType: "insects",
     insects: [],
     fish: [],
-    seaCreatures: [],
+    sea: [],
     status: "idle",
     error: null
 }
@@ -22,11 +22,16 @@ export const fetchCritters = createAsyncThunk("critters/fetchCritters", async ()
 export const crittersSlice = createSlice({
     name: "critters",
     initialState,
+    reducers: {
+        changeCritterType: (state, action) => {
+            state.currentCritterType = action.payload
+        }
+    },
     extraReducers: {
         [fetchCritters.fulfilled]: (state, action) => {
             state.insects = action.payload.insects
             state.fish = action.payload.fish
-            state.seaCreatures = action.payload.sea
+            state.sea = action.payload.sea
             state.status = "success"
         },
         [fetchCritters.pending]: state => {
@@ -40,6 +45,8 @@ export const crittersSlice = createSlice({
 })
 
 export default crittersSlice.reducer
+
+export const {changeCritterType} = crittersSlice.actions
 
 export const selectCurrentCritterType = state => state.critters.currentCritterType
 export const selectCritters = state => state.critters[state.critters.currentCritterType]

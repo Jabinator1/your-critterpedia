@@ -1,4 +1,21 @@
-const buttonFilterData = (museumReducer, lang) => {
+import { useSelector } from "react-redux"
+import { selectLanguage } from "../../../../../redux/slices/userSlice"
+import { selectFilters } from "../../../../../redux/slices/filtersSlice"
+
+export const getMonths = lang => {
+    const formatAPILang = `${lang.slice(2, 4)}-${lang.slice(0, 2)}`
+    const monthsArr = []
+
+    for (let month = 0; month < 12; month++) {
+        monthsArr.push(new Date(2020, month).toLocaleDateString(formatAPILang, {month: "short"}))
+    }
+    return monthsArr
+}
+
+const ButtonFilterData = () => {
+    const filters = useSelector(selectFilters)
+    const lang = useSelector(selectLanguage)
+
     const {
         selectedMonths, 
         isAllYearChecked, 
@@ -12,23 +29,14 @@ const buttonFilterData = (museumReducer, lang) => {
         isAllFishShadowSizesChecked,
         selectedSeaCreatureShadowSizes,
         isAllSeaCreatureShadowSizesChecked
-        } = museumReducer
+    } = filters
 
-    const formatAPILang = `${lang.slice(2, 4)}-${lang.slice(0, 2)}`
-    const getMonths = locales => {
-        const monthsArr = []
-
-        for (let month = 0; month < 12; month++) {
-            monthsArr.push(new Date(2020, month).toLocaleDateString(locales, {month: "short"}))
-        }
-        return monthsArr
-    }
 
     const data = {
         months: {
-            mappedOverArr: getMonths(formatAPILang), 
+            mappedOverArr: getMonths(lang), 
             selectedArr: selectedMonths,
-            selectedArrName: "selectedMonths",
+            filter: "selectedMonths",
             isChecked: isAllYearChecked,
             isCheckedName: "isAllYearChecked",
             label: "Months"
@@ -36,7 +44,7 @@ const buttonFilterData = (museumReducer, lang) => {
         rarityLevels: {
             mappedOverArr: ["Common", "Uncommon", "Rare", "Ultra-rare"], 
             selectedArr: selectedCritterRarity,
-            selectedArrName: "selectedCritterRarity",
+            filter: "selectedCritterRarity",
             isChecked: isAllCritterRarityChecked,
             isCheckedName: "isAllCritterRarityChecked",
             label: "Rarity Levels"
@@ -44,7 +52,7 @@ const buttonFilterData = (museumReducer, lang) => {
         fishLocations: {
             mappedOverArr: ["River", "River (Clifftop)", "River (Mouth)", "Pond", "Sea", "Pier"], 
             selectedArr: selectedLocations,
-            selectedArrName: "selectedLocations",
+            filter: "selectedLocations",
             isChecked: isAllLocationsChecked,
             isCheckedName: "isAllLocationsChecked",
             label: "Locations"
@@ -52,7 +60,7 @@ const buttonFilterData = (museumReducer, lang) => {
         fishShadowSizes: {
             mappedOverArr: ["Smallest (1)", "Small (2)", "Medium (3)", "Medium (4)", "Medium with fin (4)", "Large (5)", "Largest (6)", "Largest with fin (6)", "Narrow"], 
             selectedArr: selectedFishShadowSizes,
-            selectedArrName: "selectedFishShadowSizes",
+            filter: "selectedFishShadowSizes",
             isChecked: isAllFishShadowSizesChecked,
             isCheckedName: "isAllFishShadowSizesChecked",
             label: "Shadow Sizes"
@@ -60,7 +68,7 @@ const buttonFilterData = (museumReducer, lang) => {
         seaCreatureShadowSizes: {
             mappedOverArr: ["Smallest", "Small", "Medium", "Large", "Largest"], 
             selectedArr: selectedSeaCreatureShadowSizes,
-            selectedArrName: "selectedSeaCreatureShadowSizes",
+            filter: "selectedSeaCreatureShadowSizes",
             isChecked: isAllSeaCreatureShadowSizesChecked,
             isCheckedName: "isAllSeaCreatureShadowSizesChecked",
             label: "Shadow Sizes"
@@ -68,7 +76,7 @@ const buttonFilterData = (museumReducer, lang) => {
         seaCreatureSpeeds: {
             mappedOverArr: ["Stationary", "Very slow", "Slow", "Medium", "Fast", "Very fast"], 
             selectedArr: selectedSpeeds,
-            selectedArrName: "selectedSpeeds",
+            filter: "selectedSpeeds",
             isChecked: isAllSpeedsChecked,
             isCheckedName: "isAllSpeedsChecked",
             label: "Sea Creature Speeds"
@@ -78,4 +86,4 @@ const buttonFilterData = (museumReducer, lang) => {
     return data
 }
 
-export default buttonFilterData
+export default ButtonFilterData

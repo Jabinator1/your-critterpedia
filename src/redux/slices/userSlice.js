@@ -8,9 +8,10 @@ const initialState = {
     error: null
 }
 
-export const login = createAsyncThunk("user/login", async (userCredentials, thunkAPI) => {
+export const login = createAsyncThunk("user/login", async (userCredentials, {thunkAPI, getState}) => {
+    const {isLoggedIn} = getState().user
     try {
-        const user = await axios.post("/auth/login", userCredentials)
+        const user = await axios.post(`/auth/${isLoggedIn ? "login" : "register"}`, userCredentials)
         return user.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.request.response)
@@ -56,5 +57,7 @@ export const {changeLanguage} = userSlice.actions
 export const selectLanguage = state => state.user.lang
 export const selectUser = state => state.user.user
 export const selectError = state => state.user.error
+
+export const selectUserState = state => state.user
 
 export default userSlice.reducer

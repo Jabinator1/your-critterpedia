@@ -33,18 +33,15 @@ export const filterSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
-        searchUpdated: (state, action) => {
-            state.searchText = action.payload
-        },
-        updateHemisphere: (state, action) => {
-            state.hemisphere = action.payload
-        },
-        
+        updateFilters: (state, action) => {
+            state[action.payload.filter] = action.payload.value
+        }
     }
 })
 
 export default filterSlice.reducer
 
-export const {searchUpdated, updateHemisphere} = filterSlice.actions
+export const {updateFilters, updateHemisphere} = filterSlice.actions
 
 export const selectFilters = state => state.filters
+export const selectHemisphere = state => state.filters.hemisphere

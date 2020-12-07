@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore} from '@reduxjs/toolkit'
 import userReducer from "./slices/userSlice"
 import crittersReducer from "./slices/crittersSlice"
 import filtersReducer from "./slices/filtersSlice"
+import thunk from 'redux-thunk'
 
 export default configureStore({
     reducer: {
@@ -9,6 +10,7 @@ export default configureStore({
         user: userReducer,
         critters: crittersReducer,
         filters: filtersReducer
-    }
+    },
+    middleware: [thunk]
 })
 
