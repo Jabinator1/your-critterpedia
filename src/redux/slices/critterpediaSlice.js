@@ -15,9 +15,9 @@ export const fetchCritterpedia = createAsyncThunk("critterpedia/fetchCritterpedi
 export const critterpediaSlice = createSlice({
     name: "critterpedia",
     initialState: {
-        critterpediaInsects: [],
-        critterpediaFish: [],
-        critterpediaSea: [],
+        insectsCritterpedia: [],
+        fishCritterpedia: [],
+        seaCritterpedia: [],
         status: "idle",
         error: null
     },
@@ -26,9 +26,9 @@ export const critterpediaSlice = createSlice({
             state.status = "loading"
         },
         [fetchCritterpedia.fulfilled]: (state, action) => {
-            state.critterpediaInsects = action.payload.bug_arr
-            state.critterpediaFish = action.payload.fish_arr
-            state.critterpediaSea = action.payload.sea_arr
+            state.insectsCritterpedia = action.payload.bug_arr
+            state.fishCritterpedia = action.payload.fish_arr
+            state.seaCritterpedia = action.payload.sea_arr
             state.status = "succeeded"
         },
         [fetchCritterpedia.rejected]: (state, action) => {
@@ -36,13 +36,15 @@ export const critterpediaSlice = createSlice({
             state.error = action.error.message
         },
         [updateCritterpedia.fulfilled]: (state, action) => {
-            state.critterpediaInsects = action.payload.bug_arr
-            state.critterpediaFish = action.payload.fish_arr
-            state.critterpediaSea = action.payload.sea_arr
+            state.insectsCritterpedia = action.payload.bug_arr
+            state.fishCritterpedia = action.payload.fish_arr
+            state.seaCritterpedia = action.payload.sea_arr
         }
     }
 })
 
-export const selectCritterpedia = state => state.critterpedia
+export const selectCritterpediaCritters = state => state.critterpedia[`${state.critters.currentCritterType}Critterpedia`]
+export const selectCritterpediaError = state => state.critterpedia.error
+export const selectCritterpediaStatus = state => state.critterpedia.status
 
 export default critterpediaSlice.reducer

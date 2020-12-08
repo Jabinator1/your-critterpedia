@@ -1,18 +1,18 @@
 import CritterGraphs from "./CritterGraphs/CritterGraphs"
-import ExhibitTypeFilter from "../shared/Exhibit/ExhibitFilters/ExhibitTypeFilter/ExhibitTypeFilter"
+import CritterTypeFilter from "../shared/CritterTypeFilter/CritterTypeFilter"
 import Critterpedia from "./Critterpedia/Critterpedia"
 import InsectsToBeCaught from "./InsectsToBeCaught/InsectsToBeCaught"
-import { connect } from "react-redux"
 
-const YourCritterpedia = () => {
-    return (
-        <div>
-            <CritterGraphs />
-            <ExhibitTypeFilter />
+const YourCritterpedia = () => (
+    <div>
+        <CritterGraphs />
+        <CritterTypeFilter />
+        <main>
             <Critterpedia />
             <InsectsToBeCaught />
-        </div>
-    )
-}
+        </main>
+    </div>
+)
 
-export default connect(state => state)(YourCritterpedia)
+
+export default YourCritterpedia

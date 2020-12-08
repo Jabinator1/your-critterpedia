@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"
-import { login, selectError } from "../../redux/slices/userSlice";
+import { changeIsLoggingIn, login, selectError, selectIsLoggingIn, selectIsLoggedIn } from "../../redux/slices/userSlice";
 
 const Entry = () => {
-    const [isLoggingIn, setIsLoggingIn] = useState(true)
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -12,13 +11,16 @@ const Entry = () => {
     const [region, setRegion] = useState("")
     const [isFilledOut, setIsFilledOut] = useState(false)
     const [passMatch, setPassMatch] = useState(false)
-    
+
     const dispatch = useDispatch()
     const error = useSelector(selectError)
+    const isLoggingIn = useSelector(selectIsLoggingIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     const history = useHistory()
 
     useEffect(() => {
 
+        //TODO - CLEAN CODE
         if (!isLoggingIn) {
             if (password === passwordCheck) {
                 setPassMatch(true)
@@ -38,8 +40,10 @@ const Entry = () => {
                 setIsFilledOut(false)
             }
         }
-        
+
     }, [username, email, password, passwordCheck, region, passMatch, isLoggingIn])
+
+    useEffect(() => {if (isLoggedIn) { history.push("/") }}, [isLoggedIn, history])
 
     const entryFn = async e => {
         e.preventDefault()
@@ -49,7 +53,6 @@ const Entry = () => {
         if ((isLoggingIn && isFilledOut) || (passMatch && isFilledOut)) {
             const userObj = isLoggingIn ? loginObj : registerObj
             dispatch(login(userObj))
-            history.push("/")
         }
     }
 
@@ -87,7 +90,7 @@ const Entry = () => {
                 ) : null}
                 <button type="submit" disabled={!isFilledOut}>{isLoggingIn ? "Login" : "Create Account"}</button>
             </form>
-            <input type="button" onClick={() => setIsLoggingIn(!isLoggingIn)} value={isLoggingIn ? "Create an account?" : "Already have an account?"} />
+            <input type="button" onClick={() => dispatch(changeIsLoggingIn())} value={isLoggingIn ? "Create an account?" : "Already have an account?"} />
         </div>
     )
 }

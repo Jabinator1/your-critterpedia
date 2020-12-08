@@ -11,14 +11,16 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) =>
         setDropdown(false)
     }, [name])
 
-    const availabilityConvert = availability[`month-${hemisphere}`].replace(/\d{1,2}/g, match => {
-        return monthsArr[+match - 1]
-    })
+    const availabilityConvert = availability[`month-${hemisphere}`]
+        .replace(/\d{1,2}/g, match => monthsArr[+match - 1])
 
     return (
         <li className="exhibit-list-item" onClick={() => setDropdown(!dropdown)}>
-            <img src={icon_uri} style={{width: "50px"}} alt={name}/>
-            <h3>{name[`name-${lang}`]}</h3>
+            <div>
+                <img src={icon_uri} style={{width: "50px"}} alt={name}/>
+                <h3>{name[`name-${lang}`]}</h3>
+                <input type="button" value="+" />
+            </div>
             {dropdown ? (
                 <div>
                     <p>
@@ -30,7 +32,6 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) =>
                     </p>
                     <p>seasonality: {isAllYear ? "all year" : availabilityConvert}</p>
                     <p>time of day: {isAllDay ? "all day" : time}</p>
-
                     {critterType !== "sea" ? (
                         <>
                             <p>location: {location}</p>
