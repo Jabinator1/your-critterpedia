@@ -14,5 +14,4 @@ const YourCritterpedia = () => (
     </div>
 )
 
-
 export default YourCritterpedia

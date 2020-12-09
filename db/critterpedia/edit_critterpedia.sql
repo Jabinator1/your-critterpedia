@@ -15,4 +15,7 @@ $do$
             WHERE user_id = $1;
         END IF;
     END
-$do$
+$do$;
+
+SELECT * FROM critterpedia
+WHERE user_id = $1;

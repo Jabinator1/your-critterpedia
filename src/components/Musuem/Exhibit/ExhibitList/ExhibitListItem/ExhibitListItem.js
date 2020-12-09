@@ -19,7 +19,7 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) =>
             <div>
                 <img src={icon_uri} style={{width: "50px"}} alt={name}/>
                 <h3>{name[`name-${lang}`]}</h3>
-                <input type="button" value="+" />
+                {/* <input type="button" value="+" /> */}
             </div>
             {dropdown ? (
                 <div>

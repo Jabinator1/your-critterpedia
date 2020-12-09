@@ -18,8 +18,8 @@ export const editCritterpedia = async (req, res) => {
         const {critterArrType, critterArr} = req.body
         const {user_id} = req.session.user
 
-        await db.critterpedia.edit_critterpedia([user_id, critterArrType, critterArr])
-        res.sendStatus(200)
+        const [critterpedia] = await db.critterpedia.edit_critterpedia([user_id, critterArrType, critterArr])
+        res.status(200).send(critterpedia)
     } catch (err) {
         console.log("Database error on editBugs Function", err)
         res.sendStatus(400)
