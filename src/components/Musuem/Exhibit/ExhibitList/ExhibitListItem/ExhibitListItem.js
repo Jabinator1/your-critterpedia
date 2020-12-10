@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import bellsIcon from "../../../../../assets/bellsIcon.svg"
-
+import "./ExhibitListItem.sass"
 
 const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) => {
     const {name, availability, price, icon_uri, shadow, speed} = critter
@@ -15,14 +15,14 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) =>
         .replace(/\d{1,2}/g, match => monthsArr[+match - 1])
 
     return (
-        <li className="exhibit-list-item" onClick={() => setDropdown(!dropdown)}>
-            <div>
-                <img src={icon_uri} style={{width: "50px"}} alt={name}/>
+        <li className="exhibit-list-item-container" onClick={() => setDropdown(!dropdown)}>
+            <div className="exhibit-list-item">
+                <img className="exhibit-list-item-image" src={icon_uri} alt={name}/>
                 <h3>{name[`name-${lang}`]}</h3>
                 {/* <input type="button" value="+" /> */}
             </div>
             {dropdown ? (
-                <div>
+                <div className="critter-dropdown">
                     <p>
                         <img src={bellsIcon} alt="Bells" style={{width: "15px"}}/>
                         sell price: {price}

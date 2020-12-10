@@ -1,13 +1,114 @@
-@font-face 
-    font-family: 'test'
-    src: url(../../../assets/FOT-SeuratProB.otf) format(opentype)
+@import "../../App/variables"
 
-$secondary-color: #FFF8E5
+#header
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    align-items: center
+    height: 100px
 
-// nav
-//     font: "test"
-//     background-color: $secondary-color
+
+//# Nav
+#nav
+    position: absolute
+    top: 70px
+    left: 50%
+    transform: translate(-50%, -50%)
+    // padding: 0 10px
+    height: 35px
+    background-color: $foreground-color
+    display: flex
+    justify-content: space-around
+    align-items: center
+    border-radius: 50px
     
-.nav-link
+.nav-item
+    margin: 0 20px
     text-decoration: none
-  
+    color: $font-color
+
+.active
+    color: $button-color
+
+#mag-glass-icon
+    width: 20px
+    z-index: 10
+
+#nav-search-bar
+    margin: 0 20px 0 -45px
+    padding-left: 30px
+    border: 
+        width: 0 0 2px 0 
+        style: solid 
+        color: $input-underline-color
+    border-radius: 5px
+    color: $font-color
+    background-color: $input-background-color
+
+#nav-search-bar::-webkit-search-cancel-button
+    position: relative
+    right: 10px
+    -webkit-appearance: none
+    height: 10px
+    width: 10px
+    background: url("../../../assets/X-icon.svg") no-repeat 50% 50%;
+
+
+//# Profile
+#profile-container
+    margin-right: 20px
+    position: relative
+    
+#profile
+    display: flex
+    flex-direction: row
+    align-items: center
+    text-decoration: none
+    
+#username
+    margin-right: 10px
+    color: $font-color
+
+#profile-picture
+    width: 40px
+    border: 2px solid $foreground-color
+    border-radius: 50%
+
+#login-signup
+    color: $font-color
+    text-decoration: none
+
+
+//# ProfileDropdown
+#profile-dropdown
+    position: absolute
+    top: 50px
+    right: 0
+    background-color: $foreground-color
+    padding: 20px
+    border-radius: 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+
+#language-selection
+    display: flex
+    flex-direction: row
+    align-items: center
+
+#language-select
+    border: none
+    font-family: $font
+    color: $font-color
+    background-color: transparent
+    cursor: pointer
+    outline: none
+
+#language-icon
+    width: 30px
+
+#logout-button
+    color: $font-color
+    background-color: transparent
+    cursor: pointer

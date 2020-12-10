@@ -66,13 +66,16 @@ const Critterpedia = () => {
       : status === "failed" ? <div>{error}</div>
       : status === "succeeded" ? (
         <div>
-          {critters.map((critter) => (
+          {critters.map(critter => (
             <div key={`Critterpedia: ${critter.id}`} onClick={() => listItemClicked(critter.id)}>
-              { //TODO CLEAN UP THIS CODE
-                showAllCritters ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} style={{ width: "50px" }} />
-                : newCritters.includes(critter.id) ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} style={{ width: "50px" }} />
-                : isEditing ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} style={{ width: "50px", opacity: "0.5" }} />
-                : <img src={critterIcon} alt={critter.name["name-USen"]} style={{ width: "50px" }}/>
+              {
+                showAllCritters 
+                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+                : newCritters.includes(critter.id) 
+                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+                : isEditing 
+                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
+                : <img src={critterIcon} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
               }
             </div>
           ))}

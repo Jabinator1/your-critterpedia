@@ -36,7 +36,7 @@ export const userSlice = createSlice({
             state.lang = action.payload
         },
         changeIsLoggingIn: state => {
-            state.isLoggedIn = !state.isLoggedIn
+            state.isLoggingIn = !state.isLoggingIn
         }
     },
     extraReducers: {

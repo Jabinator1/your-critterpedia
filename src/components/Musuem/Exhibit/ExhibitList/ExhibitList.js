@@ -7,6 +7,7 @@ import { crittersFilteredSelector, selectCurrentCritterType } from "../../../../
 import { selectHemisphere } from "../../../../redux/slices/filtersSlice"
 import { selectLanguage } from "../../../../redux/slices/userSlice"
 import { getMonths } from "../ExhibitFilters/ButtonFilter/ButtonFilterData"
+import "./ExhibitList.sass"
 
 const ExhibitList = () => {
     const filteredCritters = useSelector(crittersFilteredSelector)
@@ -16,7 +17,7 @@ const ExhibitList = () => {
     const monthsArr = getMonths(lang)
 
     return (
-        <ul>
+        <ul id="exhibit-list">
             <LazyLoad placeholder={<Loading />} height={"100%"} >
                 {filteredCritters.map(critter => (
                     <ExhibitListItem 
