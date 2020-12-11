@@ -18,7 +18,7 @@ const ExhibitList = () => {
 
     return (
         <ul id="exhibit-list">
-            <LazyLoad placeholder={<Loading />} height={"100%"} >
+            <LazyLoad placeholder={<Loading />} height={"100%"}>
                 {filteredCritters.map(critter => (
                     <ExhibitListItem 
                         key={critter.id} 

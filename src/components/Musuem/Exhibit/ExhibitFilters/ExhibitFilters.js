@@ -5,6 +5,7 @@ import CritterTypeFilter from "../../../shared/CritterTypeFilter/CritterTypeFilt
 import ButtonFilter from "./ButtonFilter/ButtonFilter"
 import buttonFilterData from './ButtonFilter/ButtonFilterData'
 import { selectCurrentCritterType } from "../../../../redux/slices/crittersSlice"
+import "./ExhibitFilters.sass"
 
 const ExhibitFilters = () => {
     const critterType = useSelector(selectCurrentCritterType)
@@ -13,11 +14,9 @@ const ExhibitFilters = () => {
     const buttonFilter = filterName => <ButtonFilter filterInfo={data[filterName]} /> 
 
     return (
-        <div>
-            <div className="exhibit-type-filters">
-                <CritterTypeFilter />
-            </div>
-            <div className="side-filters">
+        <div id="filters">
+            <CritterTypeFilter />
+            <div id="side-filters">
                 {buttonFilter("months")}
                 <SliderFilters critterType={critterType}/>
                 {critterType !== "sea" 

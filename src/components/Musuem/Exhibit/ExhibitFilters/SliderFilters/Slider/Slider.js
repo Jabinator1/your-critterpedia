@@ -1,14 +1,14 @@
 import InputRange from "react-input-range"
-import '../../../../../../../node_modules/react-input-range/lib/css/index.css'
 import { selectFilters, updateFilters } from "../../../../../../redux/slices/filtersSlice"
 import { useSelector, useDispatch } from "react-redux"
+import "./Slider.sass"
 
 const Slider = ({slider: {label, min, max, step, filter}}) => {
     const filters = useSelector(selectFilters)
     const dispatch = useDispatch()
 
     return (
-        <div>
+        <div className="slider-container">
             <label>{label}</label>
             <InputRange 
                 // formatLabel={value => `${value} bells`} 

@@ -9,7 +9,7 @@ const Sliders = ({critterType}) => {
     ]
     
     return (
-        <div>
+        <div id="slider-filters">
             {sliderArr.map(slider => <Slider key={slider.label} slider={slider} />)}
         </div>
     )

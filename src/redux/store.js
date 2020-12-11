@@ -14,4 +14,3 @@ export default configureStore({
     },
     middleware: [thunk]
 })
-

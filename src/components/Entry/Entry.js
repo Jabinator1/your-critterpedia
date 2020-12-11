@@ -46,7 +46,7 @@ const Entry = () => {
 
     useEffect(() => {if (isLoggedIn) { history.push("/") }}, [isLoggedIn, history])
 
-    const entryFn = async e => {
+    const entryFn = e => {
         e.preventDefault()
         const loginObj = {email, password}
         const registerObj = {username, ...loginObj, region}
