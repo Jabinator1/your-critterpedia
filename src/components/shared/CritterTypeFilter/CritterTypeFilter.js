@@ -1,6 +1,6 @@
-import bugsIcon from "../../../assets/bugsIcon.svg"
-import fishIcon from "../../../assets/fishIcon.svg"
-import seaCreaturesIcon from "../../../assets/seaCreaturesIcon.svg"
+import { ReactComponent as InsectsIcon } from "../../../assets/bugsIcon.svg"
+import { ReactComponent as FishIcon } from "../../../assets/fishIcon.svg"
+import { ReactComponent as SeaIcon } from "../../../assets/seaCreaturesIcon.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { changeCritterType, selectCurrentCritterType } from "../../../redux/slices/crittersSlice"
 import { updateFilters } from "../../../redux/slices/filtersSlice"
@@ -11,9 +11,9 @@ const CritterTypeFilter = () => {
     const critterType = useSelector(selectCurrentCritterType)
 
     const critterTypeInputs = [
-        {name: "Insects", src: bugsIcon, critterType: "insects"},
-        {name: "Fish", src: fishIcon, critterType: "fish"},
-        {name: "Sea Creatures", src: seaCreaturesIcon, critterType: "sea"}
+        {name: "Insects", critterType: "insects", Icon: InsectsIcon},
+        {name: "Fish", critterType: "fish", Icon: FishIcon},
+        {name: "Sea Creatures", critterType: "sea", Icon: SeaIcon}
     ]
 
     const onCritterChange = critterType => {
@@ -26,23 +26,24 @@ const CritterTypeFilter = () => {
     critterType === "insects" ? "Insects"
     : critterType === "fish" ? "Fish"
     : "Sea Creatures"
+
     return (
-        <div id="critter-type-selectors">
-            <h3 className="critter-type-label" id={`${critterType}-label`}>{critterCheck}</h3>
-            <div id="critter-input-container">
-                {critterTypeInputs.map(input => (
-                    <div className="critter-type-container" key={input.name}>
-                        <input  
-                            id={`${input.critterType}-input`}
-                            className={"critter-type-input"}
-                            type="image"
-                            src={input.src} 
-                            alt={input.name}
-                            onClick={() => onCritterChange(input.critterType)}
-                        />
-                    </div>
-                ))}
+        <div id="critter-type-container">
+            <div id="critter-type-selectors">
+                <h3 className="critter-type-label" id={`${critterType}-label`}>{critterCheck}</h3>
+                <div id="critter-input-container">
+                    {critterTypeInputs.map(input => {
+                        const {Icon, name} = input
+                        const activeCheck = input.critterType === critterType ? "icon-active" : ""
+                        return (
+                            <div className="critter-icon-container" key={name} onClick={() => onCritterChange(input.critterType)}>
+                                <Icon className={`critter-icon ${activeCheck}`} />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
+
         </div>
     )
 }

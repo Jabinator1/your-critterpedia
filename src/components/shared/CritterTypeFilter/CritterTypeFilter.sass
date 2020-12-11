@@ -1,5 +1,14 @@
 @import "../../App/variables"
 
+#critter-type-container
+    height: 110px
+    width: 310px
+    margin: 0 auto
+    display: flex
+    flex-direction: row
+    align-items: center
+    position: relative
+    
 #critter-type-selectors
     margin: 0 auto
     margin-top: 20px
@@ -7,25 +16,28 @@
     display: flex
     flex-direction: column
     align-items: center
-    position: relative
+    
 
 .critter-type-label
+    border-radius: 25px
+    padding: 6px 12px
+    position: absolute
+    top: 0
     z-index: 2
     background-color: $selected-color
-    padding: 6px 12px
-    border-radius: 25px
 
 #insects-label
-    
-#fish-label
+    left: 35px
+
 #sea-label
+    right: 0
 
 #critter-input-container
     display: flex
     flex-direction: row
     align-items: center
 
-.critter-type-container
+.critter-icon-container
     width: 50px    
     height: 50px    
     display: flex
@@ -48,3 +60,9 @@
 #sea-input
     width: 60px
     height: 60px
+
+.critter-icon
+    fill: $font-color
+
+.icon-active
+    fill: $selected-color

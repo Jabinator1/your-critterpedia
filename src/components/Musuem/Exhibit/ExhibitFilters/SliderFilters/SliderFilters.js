@@ -1,4 +1,5 @@
 import Slider from "./Slider/Slider"
+import "./SliderFilters.sass"
 
 const Sliders = ({critterType}) => {
     const isSeaAndFishCritterType = critterType !== "insects" ? 15000 : 12000
