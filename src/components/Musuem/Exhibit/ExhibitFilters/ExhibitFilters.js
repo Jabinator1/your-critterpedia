@@ -11,7 +11,7 @@ const ExhibitFilters = () => {
     const critterType = useSelector(selectCurrentCritterType)
     const data = buttonFilterData()
 
-    const buttonFilter = filterName => <ButtonFilter filterInfo={data[filterName]} /> 
+    const buttonFilter = filterName => <ButtonFilter filterInfo={data[filterName]}/> 
 
     return (
         <div id="filters">

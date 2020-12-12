@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import Entry from '../Entry/Entry'
 import Home from '../Home/Home'
 import Museum from '../Musuem/Museum'
