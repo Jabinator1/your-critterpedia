@@ -43,7 +43,6 @@ const CritterTypeFilter = () => {
                     })}
                 </div>
             </div>
-
         </div>
     )
 }

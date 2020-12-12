@@ -22,8 +22,7 @@ const App = () => {
           <Route path="/museum"> <Museum /> </Route>
           <PrivateRoute path="/your-critterpedia"> <YourCritterpedia /> </PrivateRoute>
           <PrivateRoute path="/profile"> <Profile /> </PrivateRoute>
-          <Route path="/404"> <PageNotFound /> </Route>
-          <Redirect to="/404" />
+          <Route path="*"> <PageNotFound /> </Route>
         </Switch>
         {location.pathname === "/entry" ? null : <Footer /> }
     </>
