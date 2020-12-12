@@ -10,12 +10,17 @@ import PrivateRoute from '../shared/PrivateRoute/PrivateRoute'
 import YourCritterpedia from '../YourCritterpedia/YourCritterpedia'
 import "./normalize.sass"
 import './App.sass'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
+import HamburgerHeader from '../shared/HamburgerHeader/HamburgerHeader'
 
 const App = () => {
   const location = useLocation()
+  const { width } = useWindowDimensions()
+  console.log(width)
   return (
     <>
-      {location.pathname === "/entry" ? null : <Header /> }
+      {location.pathname === "/entry" ? null
+      : width > 768 ? <Header /> : <HamburgerHeader /> } 
         <Switch>
           <Route exact path="/"> <Home /> </Route>
           <Route path="/entry"> <Entry /> </Route>

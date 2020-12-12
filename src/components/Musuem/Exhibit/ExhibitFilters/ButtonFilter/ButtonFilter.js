@@ -10,6 +10,7 @@ const ButtonFilter = ({filterInfo}) => {
     const dispatch = useDispatch()
 
     const isMonthsSelected = filter === "selectedMonths"
+    const dropdownCheck = dropdown ? {transform: "rotate(0)"} : {transform: "rotate(180deg)"}
 
     const editReducerArr = input => {
         const foundIndex = selectedArr.indexOf(input)
@@ -29,7 +30,10 @@ const ButtonFilter = ({filterInfo}) => {
 
     return (
         <div className="button-filter">
-            <label onClick={() => setDropdown(!dropdown)}>{label}</label>
+            <label onClick={() => setDropdown(!dropdown)} className="button-filter-label">
+                <span>{label}</span>
+                <span className="dropdown-arrow" style={dropdownCheck}>&#9660;</span>
+            </label>
             {dropdown ? (
                 <>
                     <ul>
@@ -54,7 +58,7 @@ const ButtonFilter = ({filterInfo}) => {
                             )
                         })}
                     </ul>
-                    <label>All {label}</label>
+                    <label className="all-filters-label">All {label}</label>
                     <input type="checkbox" checked={isChecked} onChange={changeCheckbox}/>
                 </>
             ) : null}

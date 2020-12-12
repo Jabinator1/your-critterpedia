@@ -16,24 +16,27 @@ const ExhibitFilters = () => {
     return (
         <div id="filters">
             <CritterTypeFilter />
-            <div id="side-filters">
-                {buttonFilter("months")}
-                <SliderFilters critterType={critterType}/>
-                {critterType !== "sea" 
-                    ? buttonFilter("rarityLevels") 
-                    : (
+            <div id="side-filters-container">
+                <span id="filters-span">Filters</span>
+                <div id="side-filters">
+                    {buttonFilter("months")}
+                    <SliderFilters critterType={critterType}/>
+                    {critterType !== "sea" 
+                        ? buttonFilter("rarityLevels") 
+                        : (
+                            <>
+                                {buttonFilter("seaCreatureSpeeds")}
+                                {buttonFilter("seaCreatureShadowSizes")}
+                            </>
+                        )
+                    }
+                    {critterType === "fish" ? (
                         <>
-                            {buttonFilter("seaCreatureSpeeds")}
-                            {buttonFilter("seaCreatureShadowSizes")}
+                            {buttonFilter("fishLocations")}
+                            {buttonFilter("fishShadowSizes")}
                         </>
-                    )
-                }
-                {critterType === "fish" ? (
-                    <>
-                        {buttonFilter("fishLocations")}
-                        {buttonFilter("fishShadowSizes")}
-                    </>
-                 ) : null}
+                    ) : null}
+                </div>
             </div>
         </div>
     )
