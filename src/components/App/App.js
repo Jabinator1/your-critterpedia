@@ -16,15 +16,15 @@ const App = () => {
   return (
     <>
       {location.pathname === "/entry" ? null : <Header /> }
-        <Switch>
-          <Route exact path="/"> <Home /> </Route>
-          <Route path="/entry"> <Entry /> </Route>
-          <Route path="/museum"> <Museum /> </Route>
-          <PrivateRoute path="/your-critterpedia"> <YourCritterpedia /> </PrivateRoute>
-          <PrivateRoute path="/profile"> <Profile /> </PrivateRoute>
-          <Route path="*"> <PageNotFound /> </Route>
-        </Switch>
-        {location.pathname === "/entry" ? null : <Footer /> }
+      <Switch>
+        <Route exact path="/"> <Home /> </Route>
+        <Route path="/entry"> <Entry /> </Route>
+        <Route path="/museum"> <Museum /> </Route>
+        <PrivateRoute path="/your-critterpedia"> <YourCritterpedia /> </PrivateRoute>
+        <PrivateRoute path="/profile"> <Profile /> </PrivateRoute>
+        <Route path="/404"> <PageNotFound /> </Route>
+      </Switch>
+      {location.pathname === "/entry" ? null : <Footer /> }
     </>
   )
 }
