@@ -2,6 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { changeLanguage, selectLanguage } from "../../../../../redux/slices/userSlice"
 import languageIcon from "../../../../../assets/languageChangeIcon.svg"
+import "./ProfileDropdown.sass"
 
 const ProfileDropdown = ({logoutClicked, setIsProfileDropdown}) => {
     const langArr = ["USen", "EUen", "EUde", "EUes", "USes", "EUfr", "USfr", "EUit", "EUnl", "CNzh", "TWzh", "JPja", "KRko", "EUru"]

@@ -1,0 +1,53 @@
+@import "../../../App/variables"
+
+#nav
+    height: 35px
+    border-radius: 50px
+    position: absolute
+    top: 80px
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: $foreground-color
+    display: flex
+    justify-content: space-around
+    align-items: center
+    
+.nav-item
+    margin: 0 20px
+    text-decoration: none
+    color: $font-color
+
+.active
+    color: $button-color
+
+#mag-glass-icon
+    width: 20px
+    z-index: 10
+
+#nav-search-bar
+    margin: 0 20px 0 -45px
+    padding-left: 30px
+    border: 
+        width: 0 0 2px 0 
+        style: solid 
+        color: $input-underline-color
+    border-radius: 5px
+    color: $font-color
+    background-color: $input-background-color
+
+#nav-search-bar::-webkit-search-cancel-button
+    position: relative
+    right: 10px
+    -webkit-appearance: none
+    height: 10px
+    width: 10px
+    background: url("../../../../assets/X-icon.svg") no-repeat 50% 50%;
+
+
+// @media #{$smallest-screen-size}
+//     #nav
+//         position: static
+//         width: 70%
+//         transform: none
+//         flex-direction: column
+//         height: 70px

@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom"
 import { selectIsLoggedIn } from "../../../../redux/slices/userSlice"
 import { updateFilters } from "../../../../redux/slices/filtersSlice"
 import magnifyingGlassIcon from "../../../../assets/magnifyingGlassIcon.svg"
+import "./Nav.sass"
 
 const Nav = () => {
     const [searchBarHidden, setSearchBarHidden] = useState(true)

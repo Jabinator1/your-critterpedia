@@ -9,6 +9,12 @@
     align-items: center
     position: relative
     
+
+@media #{$medium-screen-size}
+    #critter-type-container
+        margin: 20px auto
+        margin-top: 80px
+    
 #critter-type-selectors
     margin: 0 auto
     margin-top: 15px
@@ -21,10 +27,10 @@
 .critter-type-label
     border-radius: 25px
     padding: 6px 12px
+    background-color: $selected-color
     position: absolute
     top: 0
     z-index: 2
-    background-color: $selected-color
 
 #insects-label
     left: 35px
@@ -48,6 +54,7 @@
     padding: 20px
     clip-path: circle()
     margin: -10px
+    cursor: pointer
 
 #insects-input
     width: 40px

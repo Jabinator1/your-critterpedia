@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import { fetchCritterpedia, selectCritterpediaCritters, selectCritterpediaError, selectCritterpediaStatus, updateCritterpedia } from "../../../redux/slices/critterpediaSlice"
 import { selectCritters, selectCurrentCritterType } from "../../../redux/slices/crittersSlice";
-import insectsIcon from "../../../assets/bugsIcon.svg"
-import fishIcon from "../../../assets/fishIcon.svg"
-import seaIcon from "../../../assets/seaCreaturesIcon.svg"
+import { ReactComponent as InsectsIcon } from "../../../assets/bugsIcon.svg"
+import { ReactComponent as FishIcon } from "../../../assets/fishIcon.svg"
+import { ReactComponent as SeaIcon } from "../../../assets/seaCreaturesIcon.svg"
 import Loading from "../../shared/Loading/Loading"
+import "./Critterpedia.sass"
 
 const Critterpedia = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,10 @@ const Critterpedia = () => {
     setNewCritters(critterpediaCritters)
   }, [status, dispatch, critterpediaCritters])
 
-  const critterIcon =
-    critterType === "insects" ? insectsIcon
-    : critterType === "fish" ? fishIcon
-    : seaIcon
+  const CritterIcon =
+    critterType === "insects" ? InsectsIcon
+    : critterType === "fish" ? FishIcon
+    : SeaIcon
 
   const listItemClicked = (critterId) => {
     if (isEditing) {
@@ -60,36 +61,49 @@ const Critterpedia = () => {
     setIsEditing(!isEditing)
   }
 
+  const onEnterChangeHandler = () => {
+    //# show the critter name here
+  }
+
+  const CritterList = memo(() => (
+    critters.map(critter => (
+      <div 
+        key={`Critterpedia: ${critter.id}`} 
+        onClick={() => listItemClicked(critter.id)} 
+        className="critterpedia-icon-container"
+        // onMouseEnter={() => }
+      >
+        {
+          showAllCritters 
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+          : newCritters.includes(critter.id) 
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+          : isEditing 
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
+          : <CritterIcon className={"critterpedia-placeholder-icon"} />
+        }
+      </div>
+    ))
+  ))
+
   return (
     <div>
       {status === "loading" ? <Loading />
       : status === "failed" ? <div>{error}</div>
       : status === "succeeded" ? (
-        <div>
-          {critters.map(critter => (
-            <div key={`Critterpedia: ${critter.id}`} onClick={() => listItemClicked(critter.id)}>
-              {
-                showAllCritters 
-                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
-                : newCritters.includes(critter.id) 
-                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
-                : isEditing 
-                  ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
-                : <img src={critterIcon} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
-              }
-            </div>
-          ))}
+        <div id="critterpedia-icons-container">
+          <CritterList />
         </div>
       ) : null}
       {!isEditing ? (
         <div>
-          <input type="button" onClick={() => setShowAllCritters(!showAllCritters)} value={showAllCritters ? "Show my critters" : "Show all critters"} />
-          <input type="button" onClick={() => setIsEditing(!isEditing)} value="Edit" />
+          <input type="button" className="button" onClick={() => setShowAllCritters(!showAllCritters)} value={showAllCritters ? "Show my critters" : "Show all critters"} />
+          <input type="button" className="button" onClick={() => setIsEditing(!isEditing)} value="Edit" />
         </div>
       ) : (
         <div>
-          <input type="button" onClick={cancelClicked} value="Cancel" />
-          <input type="button" onClick={saveClicked} value="Save" />
+          <input type="button" className="button" onClick={cancelClicked} value="Cancel" />
+          <input type="button" className="button" onClick={saveClicked} value="Save" />
         </div>
       )}
     </div>

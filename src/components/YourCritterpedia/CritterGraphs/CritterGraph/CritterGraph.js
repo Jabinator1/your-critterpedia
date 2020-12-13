@@ -28,10 +28,10 @@ const CritterGraph = ({critterpediaLength, outOf, icon}) => {
 
         groupWithData.exit().remove()
         
-        const iconGroup = d3.select(outerRef.current).append("svg:image")
+        const iconGroup = d3.select(outerRef.current).append("image")
 
         iconGroup
-            .attr("xlink:href", icon)
+            .attr("href", icon)
             .attr("width", "60")
             .attr("height", "60")
             .attr("transform", `translate(${30}, ${30})`)
@@ -53,11 +53,14 @@ const CritterGraph = ({critterpediaLength, outOf, icon}) => {
         })
 
     return (
-        <div>
-            <svg ref={outerRef} width="120" height="120">
-                <g ref={ref} transform={`translate(${outerRadius}, ${outerRadius})`}/>
-            </svg>
-            <p>{`${critterpediaLength} / ${outOf}`}</p>
+        <div id="test-my-dude">
+                {/* <Icon className="critter-icon"/> */}
+            
+                <svg ref={outerRef} className="graph-path">
+                    <g ref={ref} transform={`translate(${outerRadius}, ${outerRadius})`}/>
+                </svg>
+                <p>{`${critterpediaLength} / ${outOf}`}</p>
+
         </div>
     )
 }

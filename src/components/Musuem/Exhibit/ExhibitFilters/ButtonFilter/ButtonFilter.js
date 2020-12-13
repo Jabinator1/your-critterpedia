@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { updateFilters } from "../../../../../redux/slices/filtersSlice"
 import { useDispatch } from "react-redux"
+import "./ButtonFilter.sass"
 
 const ButtonFilter = ({filterInfo}) => {
     const {mappedOverArr, selectedArr, isChecked, label, filter, isCheckedName} = filterInfo
@@ -9,6 +10,7 @@ const ButtonFilter = ({filterInfo}) => {
     const dispatch = useDispatch()
 
     const isMonthsSelected = filter === "selectedMonths"
+    const dropdownCheck = dropdown ? {transform: "rotate(0)"} : {transform: "rotate(180deg)"}
 
     const editReducerArr = input => {
         const foundIndex = selectedArr.indexOf(input)
@@ -27,18 +29,36 @@ const ButtonFilter = ({filterInfo}) => {
     }
 
     return (
-        <div>
-            <label onClick={() => setDropdown(!dropdown)}>{label}</label>
+        <div className="button-filter">
+            <label onClick={() => setDropdown(!dropdown)} className="button-filter-label">
+                <span>{label}</span>
+                <span className="dropdown-arrow" style={dropdownCheck}>&#9660;</span>
+            </label>
             {dropdown ? (
                 <>
                     <ul>
-                        {mappedOverArr.map((item, inputIndex) => (
-                            <li key={item}>
-                                <input type="button" value={item} onClick={() => editReducerArr(isMonthsSelected ? (inputIndex + 1) : item)} disabled={isChecked} />
-                            </li>
-                        ))}
+                        {mappedOverArr.map((item, inputIndex) => {
+                            const monthCheck = isMonthsSelected ? (inputIndex + 1) : item
+                            const indexCheck = isMonthsSelected 
+                            ? ~selectedArr.indexOf(inputIndex + 1) 
+                                ? "button-filter-active" : ""
+                            : selectedArr.includes(item) 
+                                ? "button-filter-active" : ""
+
+                            return (
+                                <li key={item}>
+                                    <input 
+                                        type="button"
+                                        value={item}
+                                        className={`button-filter-input ${indexCheck}`}
+                                        onClick={() => editReducerArr(monthCheck)} 
+                                        disabled={isChecked} 
+                                    />
+                                </li>
+                            )
+                        })}
                     </ul>
-                    <label>All {label}</label>
+                    <label className="all-filters-label">All {label}</label>
                     <input type="checkbox" checked={isChecked} onChange={changeCheckbox}/>
                 </>
             ) : null}

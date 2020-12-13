@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { selectUserState, logout } from "../../../../redux/slices/userSlice"
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown"
+import "./Profile.sass"
 
 const Profile = () => {
     const {isLoggedIn, user: {username, profile_pic}} = useSelector(selectUserState)
