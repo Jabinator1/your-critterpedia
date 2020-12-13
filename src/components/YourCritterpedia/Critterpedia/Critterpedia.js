@@ -61,9 +61,18 @@ const Critterpedia = () => {
     setIsEditing(!isEditing)
   }
 
+  const onEnterChangeHandler = () => {
+    //# show the critter name here
+  }
+
   const CritterList = memo(() => (
     critters.map(critter => (
-      <div key={`Critterpedia: ${critter.id}`} onClick={() => listItemClicked(critter.id)} className="critterpedia-icon-container">
+      <div 
+        key={`Critterpedia: ${critter.id}`} 
+        onClick={() => listItemClicked(critter.id)} 
+        className="critterpedia-icon-container"
+        // onMouseEnter={() => }
+      >
         {
           showAllCritters 
             ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
