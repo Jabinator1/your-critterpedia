@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const currentMonth = new Date().getMonth() + 1
+const today = new Date()
+const currentMonth = today.getMonth() + 1
 
 const initialState = {
     searchText: "",
@@ -103,3 +104,17 @@ export const seaSpeedsFilter = (critter, filters, critterType) => (
     : filters.selectedSpeeds.length === 0 ? false
     : filters.selectedSpeeds.includes(critter.speed)
 )
+
+//# right now filter functions
+
+export const todayFilter = (critter, region) => {
+    const currentHour = today.getHours()
+
+    const monthAvailabilty = critter.availability.isAllYear ? true
+    : critter.availability[`month-array-${region || "northern"}`].includes(currentMonth)
+
+    const hourAvailability = critter.availability.isAllDay ? true
+    : critter.availability["time-array"].includes(currentHour)
+
+    return (monthAvailabilty && hourAvailability)
+}

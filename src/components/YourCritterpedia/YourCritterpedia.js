@@ -9,7 +9,7 @@ const YourCritterpedia = () => (
         <CritterTypeFilter />
         <main>
             <Critterpedia />
-            <InsectsToBeCaught />
+            {/* <InsectsToBeCaught /> */}
         </main>
     </div>
 )

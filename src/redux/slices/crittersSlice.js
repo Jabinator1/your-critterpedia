@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
-import { selectLanguage } from './userSlice'
+import { selectLanguage, selectRegion } from './userSlice'
 import { 
     fishShadowSizeFilter, 
     locationsFilter, 
@@ -11,7 +11,8 @@ import {
     seaSpeedsFilter, 
     selectFilters, 
     sellPriceFilter, 
-    timeOfDayFilter 
+    timeOfDayFilter, 
+    todayFilter
 } from './filtersSlice'
 
 const initialState = {
@@ -76,4 +77,19 @@ export const crittersFilteredSelector = createSelector(
         && seaShadowSizeFilter(critter, filters, critterType)
         && seaSpeedsFilter(critter, filters, critterType)
     ))
+)
+
+export const currentInsectsSelector = createSelector(
+    [state => state.critters.insects, selectRegion],
+    (insectsArr, region) => insectsArr.filter(critter => todayFilter(critter, region))
+)
+
+export const currentFishSelector = createSelector(
+    [state => state.critters.fish, selectRegion],
+    (fishArr, region) => fishArr.filter(critter => todayFilter(critter, region))
+)
+
+export const currentSeaSelector = createSelector(
+    [state => state.critters.sea, selectRegion],
+    (seaArr, region) => seaArr.filter(critter => todayFilter(critter, region))
 )

@@ -1,17 +1,14 @@
 import { memo } from "react"
 import { useSelector } from "react-redux"
 import LazyLoad from "react-lazyload"
-import ExhibitListItem from "./ExhibitListItem/ExhibitListItem"
-import Loading from "../../../shared/Loading/Loading"
-import { crittersFilteredSelector, selectCurrentCritterType } from "../../../../redux/slices/crittersSlice"
 import { selectHemisphere } from "../../../../redux/slices/filtersSlice"
 import { selectLanguage } from "../../../../redux/slices/userSlice"
 import { getMonths } from "../ExhibitFilters/ButtonFilter/ButtonFilterData"
+import ExhibitListItem from "./ExhibitListItem/ExhibitListItem"
+import Loading from "../../../shared/Loading/Loading"
 import "./ExhibitList.sass"
 
-const ExhibitList = () => {
-    const filteredCritters = useSelector(crittersFilteredSelector)
-    const critterType = useSelector(selectCurrentCritterType)
+const ExhibitList = ({critters, critterType}) => {
     const hemisphere = useSelector(selectHemisphere)
     const lang = useSelector(selectLanguage)
     const monthsArr = getMonths(lang)
@@ -19,7 +16,7 @@ const ExhibitList = () => {
     return (
         <ul id="exhibit-list">
             <LazyLoad placeholder={<Loading />} height={"100%"}>
-                {filteredCritters.map(critter => (
+                {critters.map(critter => (
                     <ExhibitListItem 
                         key={critter.id} 
                         critter={critter} 

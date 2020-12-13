@@ -8,10 +8,10 @@ import Profile from '../shared/Header/Profile/Profile'
 import PageNotFound from '../shared/PageNotFound/PageNotFound'
 import PrivateRoute from '../shared/PrivateRoute/PrivateRoute'
 import YourCritterpedia from '../YourCritterpedia/YourCritterpedia'
-import "./normalize.sass"
-import './App.sass'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import HamburgerHeader from '../shared/HamburgerHeader/HamburgerHeader'
+import "./normalize.sass"
+import './App.sass'
 
 const App = () => {
   const location = useLocation()

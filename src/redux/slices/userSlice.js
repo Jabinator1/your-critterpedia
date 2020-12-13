@@ -64,6 +64,7 @@ export const selectUser = state => state.user.user
 export const selectError = state => state.user.error
 export const selectIsLoggingIn = state => state.user.isLoggingIn
 export const selectIsLoggedIn = state => state.user.isLoggedIn
+export const selectRegion = state => state.user.user.region
 
 export const selectUserState = state => state.user
 

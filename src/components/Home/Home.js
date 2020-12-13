@@ -1,11 +1,32 @@
-// import { useState } from "react"
+import { useSelector } from "react-redux"
+import { currentFishSelector, currentInsectsSelector, currentSeaSelector } from "../../redux/slices/crittersSlice"
+import ExhibitList from "../Musuem/Exhibit/ExhibitList/ExhibitList"
+import "../Musuem/Exhibit/ExhibitList/ExhibitList.sass"
+import "./Home.sass"
 
 const Home = () => {
-    // const currentFish = useState([])
+    const currentInsects = useSelector(currentInsectsSelector)
+    const currentFish = useSelector(currentFishSelector)
+    const currentSea = useSelector(currentSeaSelector)
+    const {isLoggedIn, user: {username}} = useSelector(state => state.user)
+
+    const currentCritters = [
+        {critterName: "Insects", critterType: "insects", critterVar: currentInsects},
+        {critterName: "Fish", critterType: "fish", critterVar: currentFish},
+        {critterName: "Sea Creatures", critterType: "sea", critterVar: currentSea}
+    ]
+    
     return (
-        <div>
-            Welcome to Your Critterpedia!
-        </div>
+        <main>
+            <h1 id="welcome-text">Welcome {isLoggedIn ? `back ${username}!`: "to Your Critterpedia!"}</h1>
+            {!isLoggedIn ? <p id="welcome-paragraph">This page is for seeing all the critters you can currently catch according to your computer's time and date!</p> : null}
+            {currentCritters.map(({critterName, critterVar, critterType}, index) => (
+                <div className="exhibit-list-container" key={`${critterType}: ${index}`}>
+                    <h2>{critterName}</h2>
+                    <ExhibitList critters={critterVar} critterType={critterType}/>
+                </div>
+            ))}
+        </main>
     )
 }
 

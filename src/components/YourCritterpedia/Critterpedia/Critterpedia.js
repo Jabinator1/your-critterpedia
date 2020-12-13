@@ -96,12 +96,12 @@ const Critterpedia = () => {
         </div>
       ) : null}
       {!isEditing ? (
-        <div>
+        <div className="critterpedia-buttons">
           <input type="button" className="button" onClick={() => setShowAllCritters(!showAllCritters)} value={showAllCritters ? "Show my critters" : "Show all critters"} />
           <input type="button" className="button" onClick={() => setIsEditing(!isEditing)} value="Edit" />
         </div>
       ) : (
-        <div>
+        <div className="critterpedia-buttons">
           <input type="button" className="button" onClick={cancelClicked} value="Cancel" />
           <input type="button" className="button" onClick={saveClicked} value="Save" />
         </div>
