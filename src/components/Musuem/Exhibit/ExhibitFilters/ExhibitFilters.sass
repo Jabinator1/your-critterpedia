@@ -16,6 +16,9 @@
     background-color: $selected-color
     font-size: 20px
     position: absolute
+    display: flex
+    flex-direction: row
+    align-items: center
     top: 0
     right: 0
 
@@ -24,3 +27,20 @@
     background-color: $foreground-color
     border-radius: 30px
     padding: 20px
+
+@media #{$large-screen-size}
+    #filters
+        position: static
+        display: flex
+        flex-direction: column
+        
+    #side-filters-container
+        position: relative
+        margin: 0 auto
+        margin-bottom: 20px
+        width: 300px
+
+    #side-filters
+        margin: 0
+        width: 260px
+

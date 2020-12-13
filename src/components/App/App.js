@@ -16,11 +16,11 @@ import HamburgerHeader from '../shared/HamburgerHeader/HamburgerHeader'
 const App = () => {
   const location = useLocation()
   const { width } = useWindowDimensions()
-  console.log(width)
+
   return (
     <>
       {location.pathname === "/entry" ? null
-      : width > 768 ? <Header /> : <HamburgerHeader /> } 
+      : width > 902 ? <Header /> : <HamburgerHeader /> } 
         <Switch>
           <Route exact path="/"> <Home /> </Route>
           <Route path="/entry"> <Entry /> </Route>
@@ -29,7 +29,7 @@ const App = () => {
           <PrivateRoute path="/profile"> <Profile /> </PrivateRoute>
           <Route path="*"> <PageNotFound /> </Route>
         </Switch>
-        {location.pathname === "/entry" ? null : <Footer /> }
+        {/* {location.pathname === "/entry" ? null : <Footer /> } */}
     </>
   )
 }

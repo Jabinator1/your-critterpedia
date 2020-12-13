@@ -7,7 +7,7 @@ import "./HamburgerHeader.sass"
 
 const styles = {
     bmBurgerButton: {
-      position: 'fixed',
+      position: 'absolute',
       width: '36px',
       height: '30px',
       left: '36px',
@@ -54,7 +54,7 @@ const HamburgerHeader = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
     return (
       <header id="hamburger-header">
-        <Menu styles={styles}>
+        <Menu outerContainerId={"hamburger-header"}>
             <NavLink className="nav-item" activeClassName="active" exact to="/">Home</NavLink>
             <NavLink className="nav-item" activeClassName="active" to="/museum">Museum</NavLink>
             {isLoggedIn ? <NavLink className="nav-item" activeClassName="active" to="/your-critterpedia">Your Critterpedia</NavLink> : null}

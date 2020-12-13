@@ -17,30 +17,31 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr}) =>
     return (
         <li className="exhibit-list-item-container" onClick={() => setDropdown(!dropdown)}>
             <div className="exhibit-list-item">
-                <img className="exhibit-list-item-image" src={icon_uri} alt={name}/>
+                <img className="exhibit-list-item-image" src={icon_uri} alt={name[`name-${lang}`]}/>
                 <h3>{name[`name-${lang}`]}</h3>
-                {/* <input type="button" value="+" /> */}
             </div>
             {dropdown ? (
                 <div className="critter-dropdown">
-                    <p>
-                        <img src={bellsIcon} alt="Bells" style={{width: "15px"}}/>
-                        sell price: {price}
-                        {critterType === "insects" ? ` (Flick price: ${critter["price-flick"]})` 
-                        : critterType === "fish" ? ` (CJ price: ${critter["price-cj"]})` 
-                        : null}
-                    </p>
-                    <p>seasonality: {isAllYear ? "all year" : availabilityConvert}</p>
-                    <p>time of day: {isAllDay ? "all day" : time}</p>
+                    <div className="critter-sell-price">
+                        <span>Sell price: {price}</span>
+                        <img src={bellsIcon} alt="Bells" className="bells-icon" />
+                        <span>
+                            {critterType === "insects" ? ` (Flick price: ${critter["price-flick"]})` 
+                            : critterType === "fish" ? ` (CJ price: ${critter["price-cj"]})` 
+                            : null}
+                        </span>
+                    </div>
+                    <span>Seasonality: {isAllYear ? "all year" : availabilityConvert}</span>
+                    <span>Time of day: {isAllDay ? "all day" : time}</span>
                     {critterType !== "sea" ? (
                         <>
-                            <p>location: {location}</p>
-                            <p>rarity: {rarity}</p>
+                            <span>Location: {location}</span>
+                            <span>Rarity: {rarity}</span>
                         </>
                     ) : (
-                        <p>speed: {speed}</p>
+                        <span>Speed: {speed}</span>
                     )}
-                    {critterType !== "insects" ? <p>shadow: {shadow}</p> : null}
+                    {critterType !== "insects" ? <span>Shadow: {shadow}</span> : null}
                 </div>
             ) : null}
         </li>
