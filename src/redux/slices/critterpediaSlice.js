@@ -44,6 +44,7 @@ export const critterpediaSlice = createSlice({
 })
 
 export const selectCritterpediaCritters = state => state.critterpedia[`${state.critters.currentCritterType}Critterpedia`]
+export const selectAllCritterpediaCritters = state => state.critterpedia
 export const selectCritterpediaError = state => state.critterpedia.error
 export const selectCritterpediaStatus = state => state.critterpedia.status
 

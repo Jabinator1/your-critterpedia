@@ -8,7 +8,7 @@ import ExhibitListItem from "./ExhibitListItem/ExhibitListItem"
 import Loading from "../../../shared/Loading/Loading"
 import "./ExhibitList.sass"
 
-const ExhibitList = ({critters, critterType}) => {
+const ExhibitList = ({critters, critterType, critterpedia}) => {
     const hemisphere = useSelector(selectHemisphere)
     const lang = useSelector(selectLanguage)
     const monthsArr = getMonths(lang)
@@ -23,7 +23,8 @@ const ExhibitList = ({critters, critterType}) => {
                         lang={lang} 
                         critterType={critterType} 
                         hemisphere={hemisphere} 
-                        monthsArr={monthsArr} 
+                        monthsArr={monthsArr}
+                        critterpedia={critterpedia}
                     /> 
                 ))}
             </LazyLoad>

@@ -6,6 +6,7 @@ import { ReactComponent as InsectsIcon } from "../../../assets/bugsIcon.svg"
 import { ReactComponent as FishIcon } from "../../../assets/fishIcon.svg"
 import { ReactComponent as SeaIcon } from "../../../assets/seaCreaturesIcon.svg"
 import Loading from "../../shared/Loading/Loading"
+import { selectLanguage } from "../../../redux/slices/userSlice"
 import "./Critterpedia.sass"
 
 const Critterpedia = () => {
@@ -15,6 +16,7 @@ const Critterpedia = () => {
   const error = useSelector(selectCritterpediaError)
   const status = useSelector(selectCritterpediaStatus)
   const critterType = useSelector(selectCurrentCritterType)
+  const lang = useSelector(selectLanguage)
 
   const [isEditing, setIsEditing] = useState(false)
   const [newCritters, setNewCritters] = useState([])
@@ -32,6 +34,8 @@ const Critterpedia = () => {
     critterType === "insects" ? InsectsIcon
     : critterType === "fish" ? FishIcon
     : SeaIcon
+
+  const width = critterType === "sea" ? "400px" : "800px"
 
   const listItemClicked = (critterId) => {
     if (isEditing) {
@@ -71,16 +75,17 @@ const Critterpedia = () => {
         key={`Critterpedia: ${critter.id}`} 
         onClick={() => listItemClicked(critter.id)} 
         className="critterpedia-icon-container"
-        // onMouseEnter={() => }
+        onMouseEnter={() => <span>{critter.name[`name-${lang}`]}</span>}
+        onMouseLeave={() => null}
       >
         {
           showAllCritters 
-            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className="critterpedia-critter-icon" />
           : newCritters.includes(critter.id) 
-            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon"} />
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className="critterpedia-critter-icon" />
           : isEditing 
-            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className={"critterpedia-critter-icon lower-opacity"} />
-          : <CritterIcon className={"critterpedia-placeholder-icon"} />
+            ? <img src={critter.icon_uri} alt={critter.name["name-USen"]} className="critterpedia-critter-icon lower-opacity" />
+          : <CritterIcon className="critterpedia-placeholder-icon" />
         }
       </div>
     ))
@@ -91,7 +96,7 @@ const Critterpedia = () => {
       {status === "loading" ? <Loading />
       : status === "failed" ? <div>{error}</div>
       : status === "succeeded" ? (
-        <div id="critterpedia-icons-container">
+        <div id="critterpedia-icons-container" style={{width: width}}>
           <CritterList />
         </div>
       ) : null}
