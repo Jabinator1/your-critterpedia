@@ -4,5 +4,5 @@ INSERT INTO users
 VALUES 
 (${username}, ${email}, ${password}, ${profile_pic}, ${region})
 -- , ${birthday}, ${island}, ${fruit}, ${comment})
-RETURNING username, email, profile_pic, region, register_date;
+RETURNING user_id, username, email, profile_pic, region, register_date;
 -- , birthday, island, fruit, comment;

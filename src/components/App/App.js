@@ -1,4 +1,6 @@
 import { Route, Switch, useLocation } from 'react-router-dom'
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import Entry from '../Entry/Entry'
 import Home from '../Home/Home'
 import Museum from '../Musuem/Museum'
@@ -12,10 +14,20 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import HamburgerHeader from '../shared/HamburgerHeader/HamburgerHeader'
 import "./normalize.sass"
 import './App.sass'
+import { selectIsLoggedIn } from '../../redux/slices/userSlice'
+import { fetchCritterpedia } from '../../redux/slices/critterpediaSlice'
 
 const App = () => {
   const location = useLocation()
   const { width } = useWindowDimensions()
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchCritterpedia)
+    }
+  }, [isLoggedIn, dispatch])
 
   return (
     <>

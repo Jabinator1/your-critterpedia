@@ -17,7 +17,7 @@ const Home = () => {
         {critterName: "Fish", critterType: "fish", critterVar: currentFish},
         {critterName: "Sea Creatures", critterType: "sea", critterVar: currentSea}
     ]
-    
+
     return (
         <main>
             <h1 id="welcome-text">Welcome {isLoggedIn ? `back ${username}!`: "to Your Critterpedia!"}</h1>

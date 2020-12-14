@@ -38,6 +38,7 @@ export const registerUser = async (req, res) => {
                 req.body.password = hash
                 req.body.profile_pic = `https://avatars.dicebear.com/api/identicon/${username}.svg`
                 const [newUser] = await register_user(req.body)
+                await db.critterpedia.new_critterpedia(newUser.user_id)
 
                 req.session.user = newUser
                 res.status(200).send(req.session.user)

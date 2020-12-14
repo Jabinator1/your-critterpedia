@@ -22,7 +22,7 @@ const ExhibitListItem = ({critter, lang, hemisphere, critterType, monthsArr, cri
         .replace(/\d{1,2}/g, match => monthsArr[+match - 1])
 
     const critterIncluded = (isLoggedin && critterpedia.includes(id))
-    const critterIncludedStyle = critterIncluded ? {["margin-left"]: "0"} : {["margin-left"]: "25px"}
+    const critterIncludedStyle = critterIncluded ? {marginLeft: "0"} : {marginLeft: "25px"}
     return (
         <li className="exhibit-list-item-container">
             <div className="exhibit-list-item-inner-container" style={critterIncludedStyle} onClick={() => setDropdown(!dropdown)}>
