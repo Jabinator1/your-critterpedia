@@ -7,6 +7,7 @@ import { loginUser, registerUser, logoutUser, getUser } from "./controllers/auth
 import { editUser, editUserPass, deleteUser } from "./controllers/userController.js"
 import { checkUser } from "./middleware.js"
 import { getCritterpedia, editCritterpedia } from "./controllers/critterpediaController.js"
+
 const app = express()
 dotenv.config()
 

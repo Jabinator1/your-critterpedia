@@ -22,6 +22,7 @@ const Profile = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [ref, setIsProfileDropdown])
 
+    
     const logoutClicked = () => {
         setIsProfileDropdown(false)
         dispatch(logout())
